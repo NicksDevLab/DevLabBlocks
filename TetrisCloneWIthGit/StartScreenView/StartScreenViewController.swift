@@ -46,7 +46,7 @@ class StartScreenViewController: UIViewController {
   
   private func setupButtons() {
     
-    startButton = StartScreenButton(view: self.view, title: "START GAME")
+    startButton = StartScreenButton(view: self.view, title: "START THE GAME")
     startButton.addTarget(self, action: #selector(goToGameViewController), for: .touchUpInside)
     view.addSubview(startButton)
     
