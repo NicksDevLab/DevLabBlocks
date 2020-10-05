@@ -11,6 +11,7 @@
 		01957A6D252BA2DE00802F58 /* StartScreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A6C252BA2DE00802F58 /* StartScreenButton.swift */; };
 		01957A70252BA35000802F58 /* GameTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A6F252BA35000802F58 /* GameTitleLabel.swift */; };
 		01957A73252BA3AE00802F58 /* PlayerSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A72252BA3AE00802F58 /* PlayerSelectView.swift */; };
+		01957A7F252BB83100802F58 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01957A7E252BB83100802F58 /* Localizable.strings */; };
 		01F77DB0252B358800466962 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F77DAF252B358800466962 /* AppDelegate.swift */; };
 		01F77DB2252B358800466962 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F77DB1252B358800466962 /* SceneDelegate.swift */; };
 		01F77DBA252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01F77DB8252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld */; };
@@ -23,6 +24,8 @@
 		01957A6C252BA2DE00802F58 /* StartScreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenButton.swift; sourceTree = "<group>"; };
 		01957A6F252BA35000802F58 /* GameTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTitleLabel.swift; sourceTree = "<group>"; };
 		01957A72252BA3AE00802F58 /* PlayerSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSelectView.swift; sourceTree = "<group>"; };
+		01957A78252BB31500802F58 /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		01957A7E252BB83100802F58 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		01F77DAC252B358800466962 /* TetrisCloneWIthGit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TetrisCloneWIthGit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01F77DAF252B358800466962 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01F77DB1252B358800466962 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +80,7 @@
 				01F77DB1252B358800466962 /* SceneDelegate.swift */,
 				01957A75252BA3E700802F58 /* StartScreenView */,
 				01F77DBB252B358A00466962 /* Assets.xcassets */,
+				01957A7E252BB83100802F58 /* Localizable.strings */,
 				01F77DBD252B358A00466962 /* LaunchScreen.storyboard */,
 				01F77DC0252B358A00466962 /* Info.plist */,
 				01F77DB8252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld */,
@@ -125,6 +129,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-HK",
 			);
 			mainGroup = 01F77DA3252B358800466962;
 			productRefGroup = 01F77DAD252B358800466962 /* Products */;
@@ -142,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01F77DBF252B358A00466962 /* LaunchScreen.storyboard in Resources */,
+				01957A7F252BB83100802F58 /* Localizable.strings in Resources */,
 				01F77DBC252B358A00466962 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,6 +176,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				01F77DBE252B358A00466962 /* Base */,
+				01957A78252BB31500802F58 /* zh-HK */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -181,6 +188,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -242,6 +250,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

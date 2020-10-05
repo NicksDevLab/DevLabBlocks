@@ -14,11 +14,11 @@ class StartScreenButton: UIButton {
   init(view: UIView, title: String) {
     self.view = view
     super.init(frame: .zero)
-    self.setTitle(title, for: .normal)
-    self.translatesAutoresizingMaskIntoConstraints = false
-    self.backgroundColor = .white
-    self.layer.cornerRadius = 5
-    self.setTitleColor(.blue, for: .normal)
+    setTitle(title, for: .normal)
+    translatesAutoresizingMaskIntoConstraints = false
+    backgroundColor = .white
+    layer.cornerRadius = 5
+    setTitleColor(.blue, for: .normal)
   }
   
   required init?(coder: NSCoder) {
