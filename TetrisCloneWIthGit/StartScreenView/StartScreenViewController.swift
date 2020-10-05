@@ -23,6 +23,11 @@ class StartScreenViewController: UIViewController {
     setupLabel()
     setupTableView()
     setupButtons()
+    setupConstraints()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    navigationController?.isNavigationBarHidden = true
   }
   
   private func setupLabel() {
@@ -36,16 +41,9 @@ class StartScreenViewController: UIViewController {
     scoreTableView.dataSource = self
     scoreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
     view.addSubview(scoreTableView)
-    NSLayoutConstraint.activate([
-      scoreTableView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
-      scoreTableView.heightAnchor.constraint(equalToConstant: 250),
-      scoreTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      scoreTableView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -75)
-    ])
   }
   
   private func setupButtons() {
-    
     startButton = StartScreenButton(view: self.view, title: "START THE GAME")
     startButton.addTarget(self, action: #selector(goToGameViewController), for: .touchUpInside)
     view.addSubview(startButton)
@@ -53,8 +51,15 @@ class StartScreenViewController: UIViewController {
     settingsButton = StartScreenButton(view: self.view, title: "SETTINGS")
     settingsButton.addTarget(self, action: #selector(goToSettingsViewController), for: .touchUpInside)
     view.addSubview(settingsButton)
-    
+  }
+  
+  private func setupConstraints() {
     NSLayoutConstraint.activate([
+      scoreTableView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
+      scoreTableView.heightAnchor.constraint(equalToConstant: 250),
+      scoreTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      scoreTableView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -75),
+      
       startButton.widthAnchor.constraint(equalToConstant: 200),
       startButton.heightAnchor.constraint(equalToConstant: 50),
       startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
