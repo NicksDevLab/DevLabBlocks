@@ -12,19 +12,15 @@ class GameTitleLabel: UILabel {
   init(view: UIView) {
     super.init(frame: view.frame)
     translatesAutoresizingMaskIntoConstraints = false
+    layer.masksToBounds = true
+    layer.cornerRadius = 10
     font = UIFont.preferredFont(forTextStyle: .largeTitle)
     text = NSLocalizedString("STACK BLOCKS", comment: "Name of the App")
     textAlignment = .center
-    textColor = .white
-    backgroundColor = .blue
+    textColor = .secondarySystemBackground
+    layer.borderWidth = 2
+    layer.borderColor = UIColor.secondarySystemBackground.cgColor
     view.addSubview(self)
-    
-    NSLayoutConstraint.activate([
-      self.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
-      self.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2),
-      self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      self.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -view.frame.height * 0.3)
-    ])
   }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

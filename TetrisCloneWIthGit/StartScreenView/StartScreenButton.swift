@@ -17,9 +17,10 @@ class StartScreenButton: UIButton {
     titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
     setTitle(title, for: .normal)
     translatesAutoresizingMaskIntoConstraints = false
-    backgroundColor = .white
     layer.cornerRadius = 5
-    setTitleColor(.blue, for: .normal)
+    setTitleColor(.secondarySystemBackground, for: .normal)
+    layer.borderColor = UIColor.secondarySystemBackground.cgColor
+    layer.borderWidth = 2
   }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

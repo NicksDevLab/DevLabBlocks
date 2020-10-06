@@ -20,6 +20,7 @@ class StartScreenViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .systemFill
     setupLabel()
     setupTableView()
     setupButtons()
@@ -35,11 +36,9 @@ class StartScreenViewController: UIViewController {
   }
   
   private func setupTableView() {
-    scoreTableView = UITableView(frame: .zero)
-    scoreTableView.translatesAutoresizingMaskIntoConstraints = false
+    scoreTableView = HighScoreTableView(frame: .zero)
     scoreTableView.delegate = self
     scoreTableView.dataSource = self
-    scoreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
     view.addSubview(scoreTableView)
   }
   
@@ -55,20 +54,25 @@ class StartScreenViewController: UIViewController {
   
   private func setupConstraints() {
     NSLayoutConstraint.activate([
+      gameTitleLabel.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
+      gameTitleLabel.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2),
+      gameTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      gameTitleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -view.frame.height * 0.3),
+      
       scoreTableView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
       scoreTableView.heightAnchor.constraint(equalToConstant: 250),
       scoreTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      scoreTableView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -75),
+      scoreTableView.topAnchor.constraint(equalTo: gameTitleLabel.bottomAnchor, constant: 50),
       
       startButton.widthAnchor.constraint(equalToConstant: 200),
       startButton.heightAnchor.constraint(equalToConstant: 50),
       startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100),
+      startButton.topAnchor.constraint(equalTo: scoreTableView.bottomAnchor, constant: 50),
       
       settingsButton.widthAnchor.constraint(equalToConstant: 200),
       settingsButton.heightAnchor.constraint(equalToConstant: 50),
       settingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      settingsButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 160)
+      settingsButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: 25)
     ])
   }
   
@@ -85,8 +89,17 @@ class StartScreenViewController: UIViewController {
 
 extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource {
   
-  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return NSLocalizedString("HIGH SCORES", comment: "List of the highest scores achieved")
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return UITableView.automaticDimension
+  }
+  
+  func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+    return 50
+  }
+  
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HighScoreTableViewHeader.reuseID) as! HighScoreTableViewHeader
+    return header
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -94,9 +107,8 @@ extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource 
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cellID")!
+    let cell = tableView.dequeueReusableCell(withIdentifier: HighScoreTableViewCell.reuseID)!
     cell.textLabel?.text = tableViewCells[indexPath.row]
-    cell.backgroundColor = .green
     return cell
   }
   

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0183D874252C06D7001DC8C9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0183D876252C06D7001DC8C9 /* Localizable.strings */; };
+		0183D881252C7367001DC8C9 /* HighScoreTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183D880252C7367001DC8C9 /* HighScoreTableView.swift */; };
+		0183D884252C7526001DC8C9 /* HighScoreTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183D883252C7526001DC8C9 /* HighScoreTableViewHeader.swift */; };
+		0183D888252C7CB1001DC8C9 /* HighScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183D887252C7CB1001DC8C9 /* HighScoreTableViewCell.swift */; };
 		01957A69252B9FEA00802F58 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A68252B9FEA00802F58 /* StartScreenViewController.swift */; };
 		01957A6D252BA2DE00802F58 /* StartScreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A6C252BA2DE00802F58 /* StartScreenButton.swift */; };
 		01957A70252BA35000802F58 /* GameTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A6F252BA35000802F58 /* GameTitleLabel.swift */; };
@@ -25,6 +28,9 @@
 		0183D87B252C073F001DC8C9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0183D87D252C0F54001DC8C9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0183D87E252C0F6E001DC8C9 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0183D880252C7367001DC8C9 /* HighScoreTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreTableView.swift; sourceTree = "<group>"; };
+		0183D883252C7526001DC8C9 /* HighScoreTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreTableViewHeader.swift; sourceTree = "<group>"; };
+		0183D887252C7CB1001DC8C9 /* HighScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreTableViewCell.swift; sourceTree = "<group>"; };
 		01957A68252B9FEA00802F58 /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		01957A6C252BA2DE00802F58 /* StartScreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenButton.swift; sourceTree = "<group>"; };
 		01957A6F252BA35000802F58 /* GameTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTitleLabel.swift; sourceTree = "<group>"; };
@@ -49,11 +55,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0183D88A252C7DBA001DC8C9 /* HighScoreTableView */ = {
+			isa = PBXGroup;
+			children = (
+				0183D880252C7367001DC8C9 /* HighScoreTableView.swift */,
+				0183D883252C7526001DC8C9 /* HighScoreTableViewHeader.swift */,
+				0183D887252C7CB1001DC8C9 /* HighScoreTableViewCell.swift */,
+			);
+			path = HighScoreTableView;
+			sourceTree = "<group>";
+		};
 		01957A75252BA3E700802F58 /* StartScreenView */ = {
 			isa = PBXGroup;
 			children = (
 				01957A68252B9FEA00802F58 /* StartScreenViewController.swift */,
 				01957A6F252BA35000802F58 /* GameTitleLabel.swift */,
+				0183D88A252C7DBA001DC8C9 /* HighScoreTableView */,
 				01957A6C252BA2DE00802F58 /* StartScreenButton.swift */,
 				01957A72252BA3AE00802F58 /* PlayerSelectView.swift */,
 			);
@@ -167,11 +184,14 @@
 			files = (
 				01957A73252BA3AE00802F58 /* PlayerSelectView.swift in Sources */,
 				01F77DB0252B358800466962 /* AppDelegate.swift in Sources */,
+				0183D881252C7367001DC8C9 /* HighScoreTableView.swift in Sources */,
 				01F77DB2252B358800466962 /* SceneDelegate.swift in Sources */,
+				0183D888252C7CB1001DC8C9 /* HighScoreTableViewCell.swift in Sources */,
 				01F77DBA252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld in Sources */,
 				01957A70252BA35000802F58 /* GameTitleLabel.swift in Sources */,
 				01957A6D252BA2DE00802F58 /* StartScreenButton.swift in Sources */,
 				01957A69252B9FEA00802F58 /* StartScreenViewController.swift in Sources */,
+				0183D884252C7526001DC8C9 /* HighScoreTableViewHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
