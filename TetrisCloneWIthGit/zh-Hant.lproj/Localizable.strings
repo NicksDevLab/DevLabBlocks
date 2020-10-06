@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  TetrisCloneWIthGit
+
+  Created by Nicholas Church on 10/5/20.
+  
+*/
+
+// MARK: StartScreenView
+"STACK BLOCKS"   = "積木";
+"START THE GAME"   = "開始遊戲";
+"SETTINGS"    = "設定";
+"HIGH SCORES"    = "高分數";

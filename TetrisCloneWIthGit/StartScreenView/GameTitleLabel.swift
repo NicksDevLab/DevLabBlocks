@@ -12,7 +12,7 @@ class GameTitleLabel: UILabel {
   init(view: UIView) {
     super.init(frame: view.frame)
     self.translatesAutoresizingMaskIntoConstraints = false
-    self.text = "STACK BLOCKS"
+    self.text = NSLocalizedString("STACK BLOCKS", comment: "Name of the App")
     self.textAlignment = .center
     self.textColor = .white
     self.backgroundColor = .blue

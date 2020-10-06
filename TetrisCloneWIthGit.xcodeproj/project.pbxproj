@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0183D874252C06D7001DC8C9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0183D876252C06D7001DC8C9 /* Localizable.strings */; };
 		01957A69252B9FEA00802F58 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A68252B9FEA00802F58 /* StartScreenViewController.swift */; };
 		01957A6D252BA2DE00802F58 /* StartScreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A6C252BA2DE00802F58 /* StartScreenButton.swift */; };
 		01957A70252BA35000802F58 /* GameTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A6F252BA35000802F58 /* GameTitleLabel.swift */; };
 		01957A73252BA3AE00802F58 /* PlayerSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A72252BA3AE00802F58 /* PlayerSelectView.swift */; };
-		01957A7F252BB83100802F58 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01957A7E252BB83100802F58 /* Localizable.strings */; };
 		01F77DB0252B358800466962 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F77DAF252B358800466962 /* AppDelegate.swift */; };
 		01F77DB2252B358800466962 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F77DB1252B358800466962 /* SceneDelegate.swift */; };
 		01F77DBA252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01F77DB8252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld */; };
@@ -20,12 +20,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0183D875252C06D7001DC8C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0183D879252C0709001DC8C9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		0183D87B252C073F001DC8C9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0183D87D252C0F54001DC8C9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0183D87E252C0F6E001DC8C9 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		01957A68252B9FEA00802F58 /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		01957A6C252BA2DE00802F58 /* StartScreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenButton.swift; sourceTree = "<group>"; };
 		01957A6F252BA35000802F58 /* GameTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTitleLabel.swift; sourceTree = "<group>"; };
 		01957A72252BA3AE00802F58 /* PlayerSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSelectView.swift; sourceTree = "<group>"; };
-		01957A78252BB31500802F58 /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		01957A7E252BB83100802F58 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		01F77DAC252B358800466962 /* TetrisCloneWIthGit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TetrisCloneWIthGit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01F77DAF252B358800466962 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01F77DB1252B358800466962 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,10 +83,10 @@
 				01F77DB1252B358800466962 /* SceneDelegate.swift */,
 				01957A75252BA3E700802F58 /* StartScreenView */,
 				01F77DBB252B358A00466962 /* Assets.xcassets */,
-				01957A7E252BB83100802F58 /* Localizable.strings */,
 				01F77DBD252B358A00466962 /* LaunchScreen.storyboard */,
 				01F77DC0252B358A00466962 /* Info.plist */,
 				01F77DB8252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld */,
+				0183D876252C06D7001DC8C9 /* Localizable.strings */,
 			);
 			path = TetrisCloneWIthGit;
 			sourceTree = "<group>";
@@ -129,7 +132,10 @@
 			knownRegions = (
 				en,
 				Base,
-				"zh-HK",
+				"zh-Hant",
+				ja,
+				fr,
+				he,
 			);
 			mainGroup = 01F77DA3252B358800466962;
 			productRefGroup = 01F77DAD252B358800466962 /* Products */;
@@ -146,8 +152,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0183D874252C06D7001DC8C9 /* Localizable.strings in Resources */,
 				01F77DBF252B358A00466962 /* LaunchScreen.storyboard in Resources */,
-				01957A7F252BB83100802F58 /* Localizable.strings in Resources */,
 				01F77DBC252B358A00466962 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,11 +178,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		0183D876252C06D7001DC8C9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0183D875252C06D7001DC8C9 /* en */,
+				0183D879252C0709001DC8C9 /* zh-Hant */,
+				0183D87B252C073F001DC8C9 /* ja */,
+				0183D87D252C0F54001DC8C9 /* fr */,
+				0183D87E252C0F6E001DC8C9 /* he */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		01F77DBD252B358A00466962 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				01F77DBE252B358A00466962 /* Base */,
-				01957A78252BB31500802F58 /* zh-HK */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

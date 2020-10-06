@@ -44,11 +44,11 @@ class StartScreenViewController: UIViewController {
   }
   
   private func setupButtons() {
-    startButton = StartScreenButton(view: self.view, title: )
+    startButton = StartScreenButton(view: self.view, title: NSLocalizedString("START THE GAME", comment: "Start/Begin the game"))
     startButton.addTarget(self, action: #selector(goToGameViewController), for: .touchUpInside)
     view.addSubview(startButton)
     
-    settingsButton = StartScreenButton(view: self.view, title: "SETTINGS")
+    settingsButton = StartScreenButton(view: self.view, title: NSLocalizedString("SETTINGS", comment: "Application Settings"))
     settingsButton.addTarget(self, action: #selector(goToSettingsViewController), for: .touchUpInside)
     view.addSubview(settingsButton)
   }
@@ -86,7 +86,7 @@ class StartScreenViewController: UIViewController {
 extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return "HIGH SCORES"
+    return NSLocalizedString("HIGH SCORES", comment: "List of the highest scores achieved")
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
