@@ -8,23 +8,26 @@
 import UIKit
 
 class StartScreenButton: UIButton {
-
-  var view: UIView
   
-  init(view: UIView, title: String) {
-    self.view = view
+  init(title: String) {
     super.init(frame: .zero)
-    titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-    setTitle(title, for: .normal)
     translatesAutoresizingMaskIntoConstraints = false
+    
     layer.cornerRadius = 5
-    setTitleColor(.secondarySystemBackground, for: .normal)
-    layer.borderColor = UIColor.secondarySystemBackground.cgColor
+    layer.borderColor = UIColor.systemGray.cgColor
     layer.borderWidth = 2
+    
+    titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    titleLabel?.textAlignment = .center
+    titleLabel?.numberOfLines = 0
+    titleLabel?.lineBreakMode = .byWordWrapping
+    
+    setTitle(title, for: .normal)
+    setTitleColor(.systemGray, for: .normal)
   }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+    titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
   }
   
   required init?(coder: NSCoder) {

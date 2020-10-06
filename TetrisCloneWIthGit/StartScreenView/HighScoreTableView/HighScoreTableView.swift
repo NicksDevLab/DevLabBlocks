@@ -15,8 +15,8 @@ class HighScoreTableView: UITableView {
     layer.masksToBounds = true
     layer.cornerRadius = 10
     layer.borderWidth = 2
-    layer.borderColor = UIColor.secondarySystemBackground.cgColor
-    backgroundColor = .systemFill
+    layer.borderColor = UIColor.systemGray.cgColor
+    backgroundColor = .systemBackground
     
     register(HighScoreTableViewCell.self, forCellReuseIdentifier: HighScoreTableViewCell.reuseID)
     register(HighScoreTableViewHeader.self, forHeaderFooterViewReuseIdentifier: HighScoreTableViewHeader.reuseID)

@@ -13,13 +13,16 @@ class HighScoreTableViewHeader: UITableViewHeaderFooterView {
 
   override init(reuseIdentifier: String?) {
     super.init(reuseIdentifier: reuseIdentifier) 
-    textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+    textLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    textLabel?.numberOfLines = 0
+    textLabel?.lineBreakMode = .byWordWrapping
+    textLabel?.textColor = .systemGray
     textLabel?.text = NSLocalizedString("HIGH SCORES", comment: "List of the highest scores achieved")
     textLabel?.textAlignment = .center
   }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+    textLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
   }
   
   required init?(coder: NSCoder) {
