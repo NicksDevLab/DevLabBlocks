@@ -13,12 +13,13 @@ class HighScoreTableViewCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    translatesAutoresizingMaskIntoConstraints = false
     backgroundColor = .systemBackground
-    textLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
   }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    textLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
   }
   
   required init?(coder: NSCoder) {

@@ -19,7 +19,6 @@ class HighScoreTableView: UITableView {
     backgroundColor = .systemBackground
     
     register(HighScoreTableViewCell.self, forCellReuseIdentifier: HighScoreTableViewCell.reuseID)
-    register(HighScoreTableViewHeader.self, forHeaderFooterViewReuseIdentifier: HighScoreTableViewHeader.reuseID)
   }
   
   required init?(coder: NSCoder) {

@@ -107,9 +107,8 @@ extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource 
   }
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HighScoreTableViewHeader.reuseID) as! HighScoreTableViewHeader
-    header.sizeToFit()
-    return header
+    let label = HighScoreTableViewHeader()
+    return label
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

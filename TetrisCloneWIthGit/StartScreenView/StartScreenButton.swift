@@ -16,6 +16,7 @@ class StartScreenButton: UIButton {
     layer.cornerRadius = 5
     layer.borderColor = UIColor.systemGray.cgColor
     layer.borderWidth = 2
+    layer.masksToBounds = true
     
     titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
     titleLabel?.textAlignment = .center

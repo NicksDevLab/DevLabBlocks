@@ -7,22 +7,21 @@
 
 import UIKit
 
-class HighScoreTableViewHeader: UITableViewHeaderFooterView {
+class HighScoreTableViewHeader: UILabel {
   
-  static let reuseID = "HighScoreHeader"
-
-  override init(reuseIdentifier: String?) {
-    super.init(reuseIdentifier: reuseIdentifier) 
-    textLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
-    textLabel?.numberOfLines = 0
-    textLabel?.lineBreakMode = .byWordWrapping
-    textLabel?.textColor = .systemGray
-    textLabel?.text = NSLocalizedString("HIGH SCORES", comment: "List of the highest scores achieved")
-    textLabel?.textAlignment = .center
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    backgroundColor = .blue
+    font = UIFont.preferredFont(forTextStyle: .subheadline)
+    numberOfLines = 0
+    lineBreakMode = .byWordWrapping
+    textColor = .systemGray
+    textAlignment = .center
+    text = NSLocalizedString("HIGH SCORES", comment: "List of the highest scores achieved")
   }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    textLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    font = UIFont.preferredFont(forTextStyle: .subheadline)
   }
   
   required init?(coder: NSCoder) {
