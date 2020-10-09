@@ -17,6 +17,8 @@ class StartScreenViewController: UIViewController {
   
   var tableViewCells = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
   
+  var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory 
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .systemGray6
@@ -60,20 +62,20 @@ class StartScreenViewController: UIViewController {
   
   private func setupConstraints() {
     NSLayoutConstraint.activate([
-      gameTitleLabel.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
+      gameTitleLabel.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7),
       gameTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       gameTitleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -view.frame.height * 0.3),
 
-      scoreTableView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
+      scoreTableView.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7),
       scoreTableView.heightAnchor.constraint(equalToConstant: 200),
       scoreTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       scoreTableView.topAnchor.constraint(equalTo: gameTitleLabel.bottomAnchor, constant: 50),
 
-      startButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
+      startButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7),
       startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       startButton.topAnchor.constraint(equalTo: scoreTableView.bottomAnchor, constant: 50),
 
-      settingsButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.5),
+      settingsButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.7 : view.frame.width * 0.5),
       settingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       settingsButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: 25)
     ])

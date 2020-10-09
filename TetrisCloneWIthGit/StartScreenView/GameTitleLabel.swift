@@ -26,8 +26,25 @@ class GameTitleLabel: UILabel {
     layer.borderColor = UIColor.systemGray.cgColor
   }
   
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
     font = UIFont.preferredFont(forTextStyle: .largeTitle)
+  }
+}
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      ']
   }
   
   required init?(coder: NSCoder) {
