@@ -16,9 +16,14 @@ class StartScreenViewController: UIViewController {
   var settingsButton: StartScreenButton!
   
   var gameLabelWidthConstraint: NSLayoutConstraint!
+  var gameLabelTopConstraint: NSLayoutConstraint!
   var scoreTableViewWidthConstraint: NSLayoutConstraint!
+  var scoreTableViewTopConstraint: NSLayoutConstraint!
+  var scoreTableViewHeightConstraint: NSLayoutConstraint!
   var startButtonWidthConstraint: NSLayoutConstraint!
+  var startButtonTopConstraint: NSLayoutConstraint!
   var settingsButtonWidthConstraint: NSLayoutConstraint!
+  var settingsButtonTopConstraint: NSLayoutConstraint!
   
   var tableViewCells = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
   
@@ -43,6 +48,7 @@ class StartScreenViewController: UIViewController {
     gameTitleLabel = GameTitleLabel(view: self.view)
     view.addSubview(gameTitleLabel)
     gameLabelWidthConstraint = gameTitleLabel.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7)
+    gameLabelTopConstraint = gameTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: isFontAccessible ? 0 : 25)
     gameTitleLabel.sizeToFit()
   }
   
@@ -52,6 +58,8 @@ class StartScreenViewController: UIViewController {
     scoreTableView.dataSource = self
     scoreTableViewWidthConstraint = scoreTableView.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7)
     view.addSubview(scoreTableView)
+    scoreTableViewTopConstraint = scoreTableView.topAnchor.constraint(equalTo: gameTitleLabel.bottomAnchor, constant: isFontAccessible ? 10 : 50)
+    scoreTableViewHeightConstraint = scoreTableView.heightAnchor.constraint(equalToConstant: isFontAccessible ? 375 : 375)
     scoreTableView.sizeToFit()
   }
   
@@ -59,6 +67,7 @@ class StartScreenViewController: UIViewController {
     startButton = StartScreenButton(title: NSLocalizedString("START THE GAME", comment: "Start/Begin the game"))
     startButton.addTarget(self, action: #selector(goToGameViewController), for: .touchUpInside)
     startButtonWidthConstraint = startButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7)
+    startButtonTopConstraint = startButton.topAnchor.constraint(equalTo: scoreTableView.bottomAnchor, constant: isFontAccessible ? 10 : 50)
     view.addSubview(startButton)
     startButton.sizeToFit()
     
@@ -66,6 +75,7 @@ class StartScreenViewController: UIViewController {
     settingsButton.titleLabel?.lineBreakMode = .byCharWrapping
     settingsButton.addTarget(self, action: #selector(goToSettingsViewController), for: .touchUpInside)
     settingsButtonWidthConstraint = settingsButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.7 : view.frame.width * 0.5)
+    settingsButtonTopConstraint = settingsButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: isFontAccessible ? 10 : 50)
     view.addSubview(settingsButton)
     settingsButton.sizeToFit()
   }
@@ -73,21 +83,21 @@ class StartScreenViewController: UIViewController {
   private func setupConstraints() {
     NSLayoutConstraint.activate([
       gameLabelWidthConstraint,
+      gameLabelTopConstraint,
       gameTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      gameTitleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -view.frame.height * 0.3),
 
       scoreTableViewWidthConstraint,
-      scoreTableView.heightAnchor.constraint(equalToConstant: 200),
+      scoreTableViewTopConstraint,
+      scoreTableViewHeightConstraint,
       scoreTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      scoreTableView.topAnchor.constraint(equalTo: gameTitleLabel.bottomAnchor, constant: 50),
 
       startButtonWidthConstraint,
+      startButtonTopConstraint,
       startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      startButton.topAnchor.constraint(equalTo: scoreTableView.bottomAnchor, constant: 50),
 
       settingsButtonWidthConstraint,
-      settingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      settingsButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: 25)
+      settingsButtonTopConstraint,
+      settingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
     ])
   }
   
@@ -112,9 +122,14 @@ class StartScreenViewController: UIViewController {
     isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
     
     gameLabelWidthConstraint.constant = isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7
+    gameLabelTopConstraint.constant = isFontAccessible ? 0 : 25
     scoreTableViewWidthConstraint.constant = isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7
+    scoreTableViewTopConstraint.constant = isFontAccessible ? 10 : 50
+    scoreTableViewHeightConstraint.constant = isFontAccessible ? 375 : 375
     startButtonWidthConstraint.constant = isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7
+    startButtonTopConstraint.constant = isFontAccessible ? 10 : 50
     settingsButtonWidthConstraint.constant = isFontAccessible ? view.frame.width * 0.7 : view.frame.width * 0.5
+    settingsButtonTopConstraint.constant = isFontAccessible ? 10 : 50
   }
 }
 
