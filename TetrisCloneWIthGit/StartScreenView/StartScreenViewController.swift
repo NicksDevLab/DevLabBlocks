@@ -15,6 +15,11 @@ class StartScreenViewController: UIViewController {
   var startButton: StartScreenButton!
   var settingsButton: StartScreenButton!
   
+  var gameLabelWidthConstraint: NSLayoutConstraint!
+  var scoreTableViewWidthConstraint: NSLayoutConstraint!
+  var startButtonWidthConstraint: NSLayoutConstraint!
+  var settingsButtonWidthConstraint: NSLayoutConstraint!
+  
   var tableViewCells = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
   
   var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory 
@@ -33,9 +38,11 @@ class StartScreenViewController: UIViewController {
     navigationController?.isNavigationBarHidden = true
   }
   
+  
   private func setupLabel() {
     gameTitleLabel = GameTitleLabel(view: self.view)
     view.addSubview(gameTitleLabel)
+    gameLabelWidthConstraint = gameTitleLabel.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7)
     gameTitleLabel.sizeToFit()
   }
   
@@ -43,6 +50,7 @@ class StartScreenViewController: UIViewController {
     scoreTableView = HighScoreTableView(frame: .zero)
     scoreTableView.delegate = self
     scoreTableView.dataSource = self
+    scoreTableViewWidthConstraint = scoreTableView.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7)
     view.addSubview(scoreTableView)
     scoreTableView.sizeToFit()
   }
@@ -50,32 +58,34 @@ class StartScreenViewController: UIViewController {
   private func setupButtons() {
     startButton = StartScreenButton(title: NSLocalizedString("START THE GAME", comment: "Start/Begin the game"))
     startButton.addTarget(self, action: #selector(goToGameViewController), for: .touchUpInside)
+    startButtonWidthConstraint = startButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7)
     view.addSubview(startButton)
     startButton.sizeToFit()
     
     settingsButton = StartScreenButton(title: NSLocalizedString("SETTINGS", comment: "Application Settings"))
     settingsButton.titleLabel?.lineBreakMode = .byCharWrapping
     settingsButton.addTarget(self, action: #selector(goToSettingsViewController), for: .touchUpInside)
+    settingsButtonWidthConstraint = settingsButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.7 : view.frame.width * 0.5)
     view.addSubview(settingsButton)
     settingsButton.sizeToFit()
   }
   
   private func setupConstraints() {
     NSLayoutConstraint.activate([
-      gameTitleLabel.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7),
+      gameLabelWidthConstraint,
       gameTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       gameTitleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -view.frame.height * 0.3),
 
-      scoreTableView.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7),
+      scoreTableViewWidthConstraint,
       scoreTableView.heightAnchor.constraint(equalToConstant: 200),
       scoreTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       scoreTableView.topAnchor.constraint(equalTo: gameTitleLabel.bottomAnchor, constant: 50),
 
-      startButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7),
+      startButtonWidthConstraint,
       startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       startButton.topAnchor.constraint(equalTo: scoreTableView.bottomAnchor, constant: 50),
 
-      settingsButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.7 : view.frame.width * 0.5),
+      settingsButtonWidthConstraint,
       settingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       settingsButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: 25)
     ])
@@ -94,6 +104,17 @@ class StartScreenViewController: UIViewController {
   func fireHapticFeedback() {
     let feedback = UIImpactFeedbackGenerator(style: .medium)
     feedback.impactOccurred()
+  }
+  
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    
+    isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+    
+    gameLabelWidthConstraint.constant = isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7
+    scoreTableViewWidthConstraint.constant = isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7
+    startButtonWidthConstraint.constant = isFontAccessible ? view.frame.width * 0.9 : view.frame.width * 0.7
+    settingsButtonWidthConstraint.constant = isFontAccessible ? view.frame.width * 0.7 : view.frame.width * 0.5
   }
 }
 

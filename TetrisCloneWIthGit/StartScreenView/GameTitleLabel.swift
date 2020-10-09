@@ -34,21 +34,5 @@ class GameTitleLabel: UILabel {
     super.traitCollectionDidChange(previousTraitCollection)
     font = UIFont.preferredFont(forTextStyle: .largeTitle)
   }
-}
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      ']
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
   
 }
