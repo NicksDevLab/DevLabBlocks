@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		011E28F7253339B90044C8B4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E28F6253339B90044C8B4 /* GameViewController.swift */; };
+		011E28FA253339EA0044C8B4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E28F9253339EA0044C8B4 /* GameScene.swift */; };
+		011E28FE25333AA90044C8B4 /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E28FD25333AA90044C8B4 /* GameBoard.swift */; };
+		011E290225333ADA0044C8B4 /* GameBoardGraphLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E290125333ADA0044C8B4 /* GameBoardGraphLine.swift */; };
+		011E290725333B050044C8B4 /* GamePieceGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E290625333B050044C8B4 /* GamePieceGenerator.swift */; };
+		011E290A25333BEE0044C8B4 /* BaseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E290925333BEE0044C8B4 /* BaseNode.swift */; };
+		011E290D25333C0F0044C8B4 /* TetrisPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E290C25333C0F0044C8B4 /* TetrisPiece.swift */; };
+		011E291025333C310044C8B4 /* SquareShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E290F25333C310044C8B4 /* SquareShape.swift */; };
+		011E291325333C520044C8B4 /* StraightShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E291225333C520044C8B4 /* StraightShape.swift */; };
+		011E291625333C6A0044C8B4 /* ZShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E291525333C6A0044C8B4 /* ZShape.swift */; };
+		011E291925333C8B0044C8B4 /* ZRShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E291825333C8B0044C8B4 /* ZRShape.swift */; };
+		011E291C25333CBC0044C8B4 /* TShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E291B25333CBC0044C8B4 /* TShape.swift */; };
+		011E291F25333CD60044C8B4 /* LShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E291E25333CD60044C8B4 /* LShape.swift */; };
+		011E292225333CF00044C8B4 /* LRShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E292125333CF00044C8B4 /* LRShape.swift */; };
+		011E292725333D590044C8B4 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E292625333D590044C8B4 /* StartButton.swift */; };
+		011E292A25333D730044C8B4 /* ResetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E292925333D730044C8B4 /* ResetButton.swift */; };
+		011E292D25333D880044C8B4 /* PauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E292C25333D880044C8B4 /* PauseButton.swift */; };
+		011E293225333DDA0044C8B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E293125333DDA0044C8B4 /* Extensions.swift */; };
+		011E293625333E040044C8B4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E293525333E040044C8B4 /* SettingsViewController.swift */; };
+		011E293B253340090044C8B4 /* Explode.sks in Resources */ = {isa = PBXBuildFile; fileRef = 011E293A253340090044C8B4 /* Explode.sks */; };
 		0183D874252C06D7001DC8C9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0183D876252C06D7001DC8C9 /* Localizable.strings */; };
 		0183D881252C7367001DC8C9 /* HighScoreTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183D880252C7367001DC8C9 /* HighScoreTableView.swift */; };
 		0183D884252C7526001DC8C9 /* HighScoreTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183D883252C7526001DC8C9 /* HighScoreTableViewHeader.swift */; };
@@ -23,6 +43,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		011E28F6253339B90044C8B4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		011E28F9253339EA0044C8B4 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		011E28FD25333AA90044C8B4 /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
+		011E290125333ADA0044C8B4 /* GameBoardGraphLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardGraphLine.swift; sourceTree = "<group>"; };
+		011E290625333B050044C8B4 /* GamePieceGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePieceGenerator.swift; sourceTree = "<group>"; };
+		011E290925333BEE0044C8B4 /* BaseNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNode.swift; sourceTree = "<group>"; };
+		011E290C25333C0F0044C8B4 /* TetrisPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TetrisPiece.swift; sourceTree = "<group>"; };
+		011E290F25333C310044C8B4 /* SquareShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareShape.swift; sourceTree = "<group>"; };
+		011E291225333C520044C8B4 /* StraightShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StraightShape.swift; sourceTree = "<group>"; };
+		011E291525333C6A0044C8B4 /* ZShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZShape.swift; sourceTree = "<group>"; };
+		011E291825333C8B0044C8B4 /* ZRShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZRShape.swift; sourceTree = "<group>"; };
+		011E291B25333CBC0044C8B4 /* TShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShape.swift; sourceTree = "<group>"; };
+		011E291E25333CD60044C8B4 /* LShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LShape.swift; sourceTree = "<group>"; };
+		011E292125333CF00044C8B4 /* LRShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRShape.swift; sourceTree = "<group>"; };
+		011E292625333D590044C8B4 /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
+		011E292925333D730044C8B4 /* ResetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetButton.swift; sourceTree = "<group>"; };
+		011E292C25333D880044C8B4 /* PauseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseButton.swift; sourceTree = "<group>"; };
+		011E293125333DDA0044C8B4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		011E293525333E040044C8B4 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		011E293A253340090044C8B4 /* Explode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explode.sks; sourceTree = "<group>"; };
 		0183D875252C06D7001DC8C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0183D879252C0709001DC8C9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		0183D87B252C073F001DC8C9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -55,6 +95,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		011E28FC25333A170044C8B4 /* GameView */ = {
+			isa = PBXGroup;
+			children = (
+				011E28F6253339B90044C8B4 /* GameViewController.swift */,
+				011E28F9253339EA0044C8B4 /* GameScene.swift */,
+				011E290625333B050044C8B4 /* GamePieceGenerator.swift */,
+				011E290425333AEB0044C8B4 /* GameBoard */,
+				011E292425333D170044C8B4 /* TetrisPiece */,
+				011E292F25333D9A0044C8B4 /* GameButtons */,
+			);
+			path = GameView;
+			sourceTree = "<group>";
+		};
+		011E290425333AEB0044C8B4 /* GameBoard */ = {
+			isa = PBXGroup;
+			children = (
+				011E28FD25333AA90044C8B4 /* GameBoard.swift */,
+				011E290125333ADA0044C8B4 /* GameBoardGraphLine.swift */,
+			);
+			path = GameBoard;
+			sourceTree = "<group>";
+		};
+		011E292425333D170044C8B4 /* TetrisPiece */ = {
+			isa = PBXGroup;
+			children = (
+				011E290925333BEE0044C8B4 /* BaseNode.swift */,
+				011E290C25333C0F0044C8B4 /* TetrisPiece.swift */,
+				011E290F25333C310044C8B4 /* SquareShape.swift */,
+				011E291225333C520044C8B4 /* StraightShape.swift */,
+				011E291525333C6A0044C8B4 /* ZShape.swift */,
+				011E291825333C8B0044C8B4 /* ZRShape.swift */,
+				011E291B25333CBC0044C8B4 /* TShape.swift */,
+				011E291E25333CD60044C8B4 /* LShape.swift */,
+				011E292125333CF00044C8B4 /* LRShape.swift */,
+			);
+			path = TetrisPiece;
+			sourceTree = "<group>";
+		};
+		011E292F25333D9A0044C8B4 /* GameButtons */ = {
+			isa = PBXGroup;
+			children = (
+				011E292625333D590044C8B4 /* StartButton.swift */,
+				011E292925333D730044C8B4 /* ResetButton.swift */,
+				011E292C25333D880044C8B4 /* PauseButton.swift */,
+			);
+			path = GameButtons;
+			sourceTree = "<group>";
+		};
+		011E293825333F650044C8B4 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				011E293525333E040044C8B4 /* SettingsViewController.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
 		0183D88A252C7DBA001DC8C9 /* HighScoreTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,11 +195,15 @@
 				01F77DAF252B358800466962 /* AppDelegate.swift */,
 				01F77DB1252B358800466962 /* SceneDelegate.swift */,
 				01957A75252BA3E700802F58 /* StartScreenView */,
+				011E293825333F650044C8B4 /* SettingsView */,
+				011E28FC25333A170044C8B4 /* GameView */,
 				01F77DBB252B358A00466962 /* Assets.xcassets */,
 				01F77DBD252B358A00466962 /* LaunchScreen.storyboard */,
 				01F77DC0252B358A00466962 /* Info.plist */,
 				01F77DB8252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld */,
 				0183D876252C06D7001DC8C9 /* Localizable.strings */,
+				011E293125333DDA0044C8B4 /* Extensions.swift */,
+				011E293A253340090044C8B4 /* Explode.sks */,
 			);
 			path = TetrisCloneWIthGit;
 			sourceTree = "<group>";
@@ -172,6 +272,7 @@
 				0183D874252C06D7001DC8C9 /* Localizable.strings in Resources */,
 				01F77DBF252B358A00466962 /* LaunchScreen.storyboard in Resources */,
 				01F77DBC252B358A00466962 /* Assets.xcassets in Resources */,
+				011E293B253340090044C8B4 /* Explode.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,14 +285,33 @@
 			files = (
 				01957A73252BA3AE00802F58 /* PlayerSelectView.swift in Sources */,
 				01F77DB0252B358800466962 /* AppDelegate.swift in Sources */,
+				011E292725333D590044C8B4 /* StartButton.swift in Sources */,
+				011E290725333B050044C8B4 /* GamePieceGenerator.swift in Sources */,
+				011E290D25333C0F0044C8B4 /* TetrisPiece.swift in Sources */,
 				0183D881252C7367001DC8C9 /* HighScoreTableView.swift in Sources */,
+				011E28FE25333AA90044C8B4 /* GameBoard.swift in Sources */,
 				01F77DB2252B358800466962 /* SceneDelegate.swift in Sources */,
 				0183D888252C7CB1001DC8C9 /* HighScoreTableViewCell.swift in Sources */,
 				01F77DBA252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld in Sources */,
+				011E291925333C8B0044C8B4 /* ZRShape.swift in Sources */,
+				011E28FA253339EA0044C8B4 /* GameScene.swift in Sources */,
+				011E291625333C6A0044C8B4 /* ZShape.swift in Sources */,
 				01957A70252BA35000802F58 /* GameTitleLabel.swift in Sources */,
+				011E291325333C520044C8B4 /* StraightShape.swift in Sources */,
+				011E291C25333CBC0044C8B4 /* TShape.swift in Sources */,
+				011E292225333CF00044C8B4 /* LRShape.swift in Sources */,
+				011E290A25333BEE0044C8B4 /* BaseNode.swift in Sources */,
+				011E292D25333D880044C8B4 /* PauseButton.swift in Sources */,
+				011E290225333ADA0044C8B4 /* GameBoardGraphLine.swift in Sources */,
+				011E292A25333D730044C8B4 /* ResetButton.swift in Sources */,
 				01957A6D252BA2DE00802F58 /* StartScreenButton.swift in Sources */,
+				011E291025333C310044C8B4 /* SquareShape.swift in Sources */,
+				011E293625333E040044C8B4 /* SettingsViewController.swift in Sources */,
 				01957A69252B9FEA00802F58 /* StartScreenViewController.swift in Sources */,
+				011E28F7253339B90044C8B4 /* GameViewController.swift in Sources */,
 				0183D884252C7526001DC8C9 /* HighScoreTableViewHeader.swift in Sources */,
+				011E291F25333CD60044C8B4 /* LShape.swift in Sources */,
+				011E293225333DDA0044C8B4 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

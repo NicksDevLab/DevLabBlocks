@@ -30,7 +30,7 @@ class StartScreenViewController: UIViewController {
   var settingsButtonWidthConstraint: NSLayoutConstraint!
   var settingsButtonTopConstraint: NSLayoutConstraint!
   
-  var tableViewCells = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
+  var tableViewCells = ["ONE" : "10", "TWO" : "20", "THREE" : "50", "FOUR" : "40", "FIVE" : "30"]
   
   var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory 
   
@@ -168,7 +168,7 @@ extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource 
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: HighScoreTableViewCell.reuseID)!
-    cell.textLabel?.text = tableViewCells[indexPath.row]
+    cell.textLabel?.text = ""
     return cell
   }
   
