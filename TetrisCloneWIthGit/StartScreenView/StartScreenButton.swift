@@ -12,13 +12,13 @@ class StartScreenButton: UIButton {
   init(title: String) {
     super.init(frame: .zero)
     translatesAutoresizingMaskIntoConstraints = false
-    
+   
     layer.cornerRadius = 5
     layer.borderColor = UIColor.systemGray.cgColor
     layer.borderWidth = 2
     layer.masksToBounds = true
     
-    titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
     titleLabel?.textAlignment = .center
     titleLabel?.numberOfLines = 0
     titleLabel?.lineBreakMode = .byWordWrapping
@@ -27,8 +27,12 @@ class StartScreenButton: UIButton {
     setTitleColor(.systemGray, for: .normal)
   }
   
+//  override var intrinsicContentSize: CGSize {
+//    return CGSize(width: self.frame.width, height: (self.titleLabel?.frame.height)!)
+//  }
+  
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
   }
   
   required init?(coder: NSCoder) {
