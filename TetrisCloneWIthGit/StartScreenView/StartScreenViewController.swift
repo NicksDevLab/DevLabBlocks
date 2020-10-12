@@ -32,7 +32,9 @@ class StartScreenViewController: UIViewController {
   
   var tableViewCells = ["ONE" : "10", "TWO" : "20", "THREE" : "50", "FOUR" : "40", "FIVE" : "30"]
   
-  var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory 
+  var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+  
+  var customPresentationController = PlayerSelectVCTransitioningDelegate()
   
   // MARK: viewDidLoad
   override func viewDidLoad() {
@@ -114,6 +116,10 @@ class StartScreenViewController: UIViewController {
   @objc
   func goToGameViewController() {
     fireHapticFeedback()
+    let vc = PlayerSelectViewController()
+    vc.modalPresentationStyle = .custom
+    vc.transitioningDelegate = customPresentationController
+    present(vc, animated: true, completion: nil)
   }
   
   @objc

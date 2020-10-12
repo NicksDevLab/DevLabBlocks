@@ -219,7 +219,7 @@ class GameBoard: SKShapeNode {
       if position.y >= yPositions.last! && pieceIsSet {
         boardState = .gameOver
         let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let scoreEntry = NSEntityDescription.insertNewObject(forEntityName: "HighScore", into: managedObjectContext) as! HighScore
+        let scoreEntry = NSEntityDescription.insertNewObject(forEntityName: "HighScore", into: managedObjectContext)
         if let parent = self.parent as? GameScene {
           scoreEntry.setValue(parent.score, forKey: "score")
         }
