@@ -11,3 +11,6 @@
 "START THE GAME"    = "START THE GAME";
 "SETTINGS"          = "SETTINGS";
 "HIGH SCORES"       = "HIGH SCORES";
+
+// MARK: PlayerSelectView
+"Select Player"     = "Select Player";
