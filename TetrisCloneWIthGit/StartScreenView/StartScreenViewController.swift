@@ -34,13 +34,14 @@ class StartScreenViewController: UIViewController {
   
   var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
   
-  var customPresentationController = PlayerSelectVCTransitioningDelegate()
+  var customPresentationController: PlayerSelectVCTransitioningDelegate!
   
   // MARK: viewDidLoad
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .systemGray6
     
+    retreiveCoreData()
     setupLabel()
     setupTableView()
     setupButtons()
@@ -113,25 +114,6 @@ class StartScreenViewController: UIViewController {
     ])
   }
   
-  @objc
-  func goToGameViewController() {
-    fireHapticFeedback()
-    let vc = PlayerSelectViewController()
-    vc.modalPresentationStyle = .custom
-    vc.transitioningDelegate = customPresentationController
-    present(vc, animated: true, completion: nil)
-  }
-  
-  @objc
-  func goToSettingsViewController() {
-    fireHapticFeedback()
-  }
-  
-  func fireHapticFeedback() {
-    let feedback = UIImpactFeedbackGenerator(style: .medium)
-    feedback.impactOccurred()
-  }
-  
   // MARK: traitCollectionDidChange
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
@@ -152,7 +134,7 @@ class StartScreenViewController: UIViewController {
 }
 
 
-// MARK: VC Extension for tableView
+// MARK: Extension for tableView
 extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -178,4 +160,33 @@ extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource 
     return cell
   }
   
+}
+
+
+// MARK: Extension for methods
+extension StartScreenViewController {
+  
+  private func retreiveCoreData() {
+    
+  }
+  
+  @objc
+  func goToGameViewController() {
+    fireHapticFeedback()
+    customPresentationController = PlayerSelectVCTransitioningDelegate()
+    let vc = PlayerSelectViewController()
+    vc.modalPresentationStyle = .custom
+    vc.transitioningDelegate = customPresentationController
+    present(vc, animated: true, completion: nil)
+  }
+  
+  @objc
+  func goToSettingsViewController() {
+    fireHapticFeedback()
+  }
+  
+  func fireHapticFeedback() {
+    let feedback = UIImpactFeedbackGenerator(style: .medium)
+    feedback.impactOccurred()
+  }
 }

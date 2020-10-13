@@ -12,6 +12,7 @@ class PlayerSelectViewController: UIViewController {
   
   let tableView = HighScoreTableView()
   var addNewPlayerButton: StartScreenButton!
+  var dismissGesture: UISwipeGestureRecognizer!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -20,7 +21,7 @@ class PlayerSelectViewController: UIViewController {
     setupTableView()
     setupAddNewPlayerButton()
     setupConstraints()
-    
+    setupDismissSwipeGesture()
   }
   
   private func setupTableView() {
@@ -47,7 +48,13 @@ class PlayerSelectViewController: UIViewController {
       addNewPlayerButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: view.frame.height * 0.03)
     ])
   }
+  
+  private func setupDismissSwipeGesture() {
+    dismissGesture = UISwipeGestureRecognizer(target: self, action: #selector(dismissView(_:)))
+    view.addGestureRecognizer(dismissGesture)
+  }
 }
+
 
 
 extension PlayerSelectViewController: UITableViewDelegate, UITableViewDataSource {
@@ -67,6 +74,16 @@ extension PlayerSelectViewController: UITableViewDelegate, UITableViewDataSource
     cell.textLabel?.text = String(describing: indexPath.row)
     return cell
   }
+}
+
+
+
+extension PlayerSelectViewController {
   
-  
+  @objc
+  private func dismissView(_ sender: UISwipeGestureRecognizer) {
+    if sender.direction == .down {
+      dismiss(animated: true, completion: nil)
+    }
+  }
 }

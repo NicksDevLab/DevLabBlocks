@@ -219,9 +219,9 @@ class GameBoard: SKShapeNode {
       if position.y >= yPositions.last! && pieceIsSet {
         boardState = .gameOver
         let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let scoreEntry = NSEntityDescription.insertNewObject(forEntityName: "HighScore", into: managedObjectContext)
+        let scoreEntry = NSEntityDescription.insertNewObject(forEntityName: "Player", into: managedObjectContext)
         if let parent = self.parent as? GameScene {
-          scoreEntry.setValue(parent.score, forKey: "score")
+          scoreEntry.setValue(parent.score, forKey: "topScore")
         }
         // TODO: Save user name to core data.
         do {
