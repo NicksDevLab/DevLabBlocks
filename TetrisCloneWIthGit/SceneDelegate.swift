@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -24,9 +25,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
   
   func sceneDidEnterBackground(_ scene: UIScene) {
-    (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+//    (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+    
   }
 
+  func sceneWillResignActive(_ scene: UIScene) {
+    
+  }
 
 }
 

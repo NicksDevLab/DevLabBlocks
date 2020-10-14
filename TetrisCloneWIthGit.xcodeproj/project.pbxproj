@@ -39,6 +39,7 @@
 		01957A73252BA3AE00802F58 /* PlayerSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A72252BA3AE00802F58 /* PlayerSelectViewController.swift */; };
 		01C53FEC2535C9D000F54269 /* Player+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C53FEA2535C9D000F54269 /* Player+CoreDataClass.swift */; };
 		01C53FED2535C9D000F54269 /* Player+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C53FEB2535C9D000F54269 /* Player+CoreDataProperties.swift */; };
+		01C53FF125363F5A00F54269 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C53FF025363F5A00F54269 /* AddPlayerViewController.swift */; };
 		01F77DB0252B358800466962 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F77DAF252B358800466962 /* AppDelegate.swift */; };
 		01F77DB2252B358800466962 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F77DB1252B358800466962 /* SceneDelegate.swift */; };
 		01F77DBA252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01F77DB8252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld */; };
@@ -83,6 +84,7 @@
 		01957A72252BA3AE00802F58 /* PlayerSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSelectViewController.swift; sourceTree = "<group>"; };
 		01C53FEA2535C9D000F54269 /* Player+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Player+CoreDataClass.swift"; path = "../../../Player+CoreDataClass.swift"; sourceTree = "<group>"; };
 		01C53FEB2535C9D000F54269 /* Player+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Player+CoreDataProperties.swift"; path = "../../../Player+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		01C53FF025363F5A00F54269 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddPlayerViewController.swift; path = ../../../../../../../AddPlayerViewController.swift; sourceTree = "<group>"; };
 		01F77DAC252B358800466962 /* TetrisCloneWIthGit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TetrisCloneWIthGit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01F77DAF252B358800466962 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01F77DB1252B358800466962 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -187,8 +189,17 @@
 				01957A72252BA3AE00802F58 /* PlayerSelectViewController.swift */,
 				010495C62534E90800947A28 /* PlayerSelectVCTransitioningDelegate.swift */,
 				010495CA2534E99700947A28 /* PlayerSelectVCAnimationController.swift */,
+				01C53FEF25363F3800F54269 /* AddPlayerView */,
 			);
 			path = PlayerSelectView;
+			sourceTree = "<group>";
+		};
+		01C53FEF25363F3800F54269 /* AddPlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				01C53FF025363F5A00F54269 /* AddPlayerViewController.swift */,
+			);
+			path = AddPlayerView;
 			sourceTree = "<group>";
 		};
 		01F77DA3252B358800466962 = {
@@ -316,6 +327,7 @@
 				011E28FE25333AA90044C8B4 /* GameBoard.swift in Sources */,
 				01F77DB2252B358800466962 /* SceneDelegate.swift in Sources */,
 				0183D888252C7CB1001DC8C9 /* HighScoreTableViewCell.swift in Sources */,
+				01C53FF125363F5A00F54269 /* AddPlayerViewController.swift in Sources */,
 				01F77DBA252B358800466962 /* TetrisCloneWIthGit.xcdatamodeld in Sources */,
 				011E291925333C8B0044C8B4 /* ZRShape.swift in Sources */,
 				011E28FA253339EA0044C8B4 /* GameScene.swift in Sources */,

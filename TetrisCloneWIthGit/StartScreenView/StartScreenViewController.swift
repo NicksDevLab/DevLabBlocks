@@ -6,16 +6,18 @@
 //
 
 import UIKit
+import CoreData
 
 
 class StartScreenViewController: UIViewController {
   
+  // MARK: UI Elements
   var gameTitleLabel: UILabel!
   var scoreTableView: UITableView!
   var startButton: StartScreenButton!
   var settingsButton: StartScreenButton!
   
-  //MARK: Constraints
+  // MARK: Constraints
   var gameLabelWidthConstraint: NSLayoutConstraint!
   var gameLabelTopConstraint: NSLayoutConstraint!
   
@@ -30,7 +32,7 @@ class StartScreenViewController: UIViewController {
   var settingsButtonWidthConstraint: NSLayoutConstraint!
   var settingsButtonTopConstraint: NSLayoutConstraint!
   
-  var tableViewCells = ["ONE" : "10", "TWO" : "20", "THREE" : "50", "FOUR" : "40", "FIVE" : "30"]
+  var players: [Player] = []
   
   var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
   
@@ -41,11 +43,11 @@ class StartScreenViewController: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = .systemGray6
     
-    retreiveCoreData()
     setupLabel()
     setupTableView()
     setupButtons()
     setupConstraints()
+    retreiveCoreData()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -151,12 +153,12 @@ extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource 
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return tableViewCells.count
+    return players.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: HighScoreTableViewCell.reuseID)!
-    cell.textLabel?.text = ""
+    cell.textLabel?.text = players[indexPath.row].name
     return cell
   }
   
@@ -167,7 +169,19 @@ extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource 
 extension StartScreenViewController {
   
   private func retreiveCoreData() {
-    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let playerFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
+    playerFetchRequest.sortDescriptors = [
+      NSSortDescriptor(key: "topScore", ascending: false)
+    ]
+    do {
+      players = try context.fetch(playerFetchRequest) as! [Player]
+      scoreTableView.reloadData()
+      print(playerFetchRequest)
+    }
+    catch {
+      print(error)
+    }
   }
   
   @objc

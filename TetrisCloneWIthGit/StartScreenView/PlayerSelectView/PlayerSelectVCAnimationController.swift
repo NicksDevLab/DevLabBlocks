@@ -51,7 +51,7 @@ class PlayerSelectVCAnimationController: NSObject, UIViewControllerAnimatedTrans
     
     let shadeView = UIView(frame: fromVC.view.frame)
     shadeView.backgroundColor = .black
-    shadeView.alpha = 0.5
+    shadeView.alpha = 0.0
     
     if isPresenting {
     containerView.addSubview(shadeView)
@@ -60,6 +60,7 @@ class PlayerSelectVCAnimationController: NSObject, UIViewControllerAnimatedTrans
     UIView.animate(withDuration: animationDuration, animations: {
       toVC.view.frame.origin.y = self.estimatedFinalHeight
       fromVC.view.layer.transform = ViewControllerScale.modelPresentationScale.transform
+      shadeView.alpha = 0.5
       fromVC.view.layer.cornerRadius = 15
       toVC.view.layer.cornerRadius = 15
     }, completion: { _ in
@@ -70,12 +71,13 @@ class PlayerSelectVCAnimationController: NSObject, UIViewControllerAnimatedTrans
     } else {
     containerView.addSubview(fromVC.view)
     UIView.animate(withDuration: animationDuration, animations: {
-      shadeView.removeFromSuperview()
       fromVC.view.frame.origin.y = UIScreen.main.bounds.maxY
       toVC.view.layer.transform = ViewControllerScale.reset.transform
+      shadeView.alpha = 0.0
       fromVC.view.layer.cornerRadius = 0
       toVC.view.layer.cornerRadius = 0
     }, completion: { _ in
+      shadeView.removeFromSuperview()
       fromVC.endAppearanceTransition()
       toVC.endAppearanceTransition()
       transitionContext.completeTransition(!transitionContext.transitionWasCancelled)

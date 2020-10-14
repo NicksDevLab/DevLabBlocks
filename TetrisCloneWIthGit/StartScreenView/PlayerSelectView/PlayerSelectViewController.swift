@@ -16,7 +16,7 @@ class PlayerSelectViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .green
+    view.backgroundColor = .systemBackground
 
     setupTableView()
     setupAddNewPlayerButton()
@@ -33,6 +33,7 @@ class PlayerSelectViewController: UIViewController {
   private func setupAddNewPlayerButton() {
     addNewPlayerButton = StartScreenButton(title: NSLocalizedString("New Player", comment: "Add a new user"))
     addNewPlayerButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+    addNewPlayerButton.addTarget(self, action: #selector(addPlayer), for: .touchUpInside)
     view.addSubview(addNewPlayerButton)
   }
   
@@ -51,6 +52,8 @@ class PlayerSelectViewController: UIViewController {
   
   private func setupDismissSwipeGesture() {
     dismissGesture = UISwipeGestureRecognizer(target: self, action: #selector(dismissView(_:)))
+    dismissGesture.direction = .down
+    view.isUserInteractionEnabled = true
     view.addGestureRecognizer(dismissGesture)
   }
 }
@@ -82,8 +85,12 @@ extension PlayerSelectViewController {
   
   @objc
   private func dismissView(_ sender: UISwipeGestureRecognizer) {
-    if sender.direction == .down {
-      dismiss(animated: true, completion: nil)
-    }
+    dismiss(animated: true, completion: nil)
+  }
+  
+  @objc
+  private func addPlayer() {
+    let vc = AddPlayerViewController()
+    present(vc, animated: true, completion: nil)
   }
 }
