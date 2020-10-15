@@ -14,7 +14,7 @@ class HighScoreTableViewCell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     translatesAutoresizingMaskIntoConstraints = false
-    backgroundColor = .systemBackground
+    backgroundColor = UIColor(named: "tetrisLabelBackground")
     textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
   }
   

@@ -12,9 +12,10 @@ class StartScreenButton: UIButton {
   init(title: String) {
     super.init(frame: .zero)
     translatesAutoresizingMaskIntoConstraints = false
-   
+    backgroundColor = UIColor(named: "tetrisLabelBackground")
+    
     layer.cornerRadius = 5
-    layer.borderColor = UIColor.systemGray.cgColor
+    layer.borderColor = UIColor(named: "tetrisYellow")?.cgColor
     layer.borderWidth = 2
     layer.masksToBounds = true
     
@@ -24,12 +25,8 @@ class StartScreenButton: UIButton {
     titleLabel?.lineBreakMode = .byWordWrapping
     
     setTitle(title, for: .normal)
-    setTitleColor(.systemGray, for: .normal)
+    setTitleColor(UIColor(named: "tetrisGreen"), for: .normal)
   }
-  
-//  override var intrinsicContentSize: CGSize {
-//    return CGSize(width: self.frame.width, height: (self.titleLabel?.frame.height)!)
-//  }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)

@@ -15,7 +15,7 @@ class HighScoreTableView: UITableView {
     layer.masksToBounds = true
     layer.cornerRadius = 10
     layer.borderWidth = 2
-    layer.borderColor = UIColor.systemGray.cgColor
+    layer.borderColor = UIColor(named: "tetrisBlue")?.cgColor
     backgroundColor = .systemBackground
     
     register(HighScoreTableViewCell.self, forCellReuseIdentifier: HighScoreTableViewCell.reuseID)

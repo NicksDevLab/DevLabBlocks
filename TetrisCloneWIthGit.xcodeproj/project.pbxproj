@@ -178,6 +178,7 @@
 				01957A6F252BA35000802F58 /* GameTitleLabel.swift */,
 				0183D88A252C7DBA001DC8C9 /* HighScoreTableView */,
 				01957A6C252BA2DE00802F58 /* StartScreenButton.swift */,
+				011E293825333F650044C8B4 /* SettingsView */,
 				01C53FE82535248500F54269 /* PlayerSelectView */,
 			);
 			path = StartScreenView;
@@ -226,7 +227,6 @@
 				01F77DAF252B358800466962 /* AppDelegate.swift */,
 				01F77DB1252B358800466962 /* SceneDelegate.swift */,
 				01957A75252BA3E700802F58 /* StartScreenView */,
-				011E293825333F650044C8B4 /* SettingsView */,
 				011E28FC25333A170044C8B4 /* GameView */,
 				01F77DBB252B358A00466962 /* Assets.xcassets */,
 				01F77DBD252B358A00466962 /* LaunchScreen.storyboard */,

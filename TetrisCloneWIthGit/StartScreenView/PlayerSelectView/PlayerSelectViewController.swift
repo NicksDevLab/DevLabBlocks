@@ -6,13 +6,20 @@
 //
 
 import UIKit
-
+import CoreData
 
 class PlayerSelectViewController: UIViewController {
   
   let tableView = HighScoreTableView()
   var addNewPlayerButton: StartScreenButton!
   var dismissGesture: UISwipeGestureRecognizer!
+  
+  var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+  
+  var tableViewHeightConstraint: NSLayoutConstraint!
+  var newPlayerButtonHeightConstraint: NSLayoutConstraint!
+  
+  var players: [Player] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -24,9 +31,15 @@ class PlayerSelectViewController: UIViewController {
     setupDismissSwipeGesture()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    retreiveCoreData()
+  }
+
   private func setupTableView() {
     tableView.delegate = self
     tableView.dataSource = self
+    tableViewHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.height * 0.35 : view.frame.height * 0.4)
     view.addSubview(tableView)
   }
   
@@ -34,17 +47,19 @@ class PlayerSelectViewController: UIViewController {
     addNewPlayerButton = StartScreenButton(title: NSLocalizedString("New Player", comment: "Add a new user"))
     addNewPlayerButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
     addNewPlayerButton.addTarget(self, action: #selector(addPlayer), for: .touchUpInside)
+    newPlayerButtonHeightConstraint = addNewPlayerButton.heightAnchor.constraint(equalToConstant: isFontAccessible ? 50 : 100)
     view.addSubview(addNewPlayerButton)
   }
   
   private func setupConstraints() {
     NSLayoutConstraint.activate([
       tableView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8),
-      tableView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.4),
+      tableViewHeightConstraint,
       tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.05),
       
       addNewPlayerButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.6),
+      newPlayerButtonHeightConstraint,
       addNewPlayerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       addNewPlayerButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: view.frame.height * 0.03)
     ])
@@ -56,11 +71,32 @@ class PlayerSelectViewController: UIViewController {
     view.isUserInteractionEnabled = true
     view.addGestureRecognizer(dismissGesture)
   }
+  
+  // MARK: traitCollectionDidChange
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+    tableViewHeightConstraint.constant = isFontAccessible ? view.frame.height * 0.35 : view.frame.height * 0.4
+    newPlayerButtonHeightConstraint.constant = isFontAccessible ? 110 : 50
+  }
 }
 
 
 
+// MARK: TableViewDelegate Extension
 extension PlayerSelectViewController: UITableViewDelegate, UITableViewDataSource {
+  
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    if isFontAccessible {
+      return 60
+    } else {
+      return 30
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+    return 45
+  }
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let view = HighScoreTableViewHeader()
@@ -69,18 +105,22 @@ extension PlayerSelectViewController: UITableViewDelegate, UITableViewDataSource
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return players.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: HighScoreTableViewCell.reuseID) as! HighScoreTableViewCell
-    cell.textLabel?.text = String(describing: indexPath.row)
+    cell.textLabel?.text = players[indexPath.row].name
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    UserDefaults.setValue(players[indexPath.row].name, forKey: "currentPlayer")
   }
 }
 
 
-
+// MARK: Methods Extension
 extension PlayerSelectViewController {
   
   @objc
@@ -92,5 +132,20 @@ extension PlayerSelectViewController {
   private func addPlayer() {
     let vc = AddPlayerViewController()
     present(vc, animated: true, completion: nil)
+  }
+  
+  func retreiveCoreData() {
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let playerFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
+    playerFetchRequest.sortDescriptors = [
+      NSSortDescriptor(key: "lastPlayed", ascending: false)
+    ]
+    do {
+      players = try context.fetch(playerFetchRequest) as! [Player]
+      tableView.reloadData()
+    }
+    catch {
+      print(error)
+    }
   }
 }

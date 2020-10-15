@@ -11,11 +11,11 @@ class HighScoreTableViewHeader: UILabel {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = .blue
-    font = UIFont.preferredFont(forTextStyle: .subheadline)
+    backgroundColor = UIColor(named: "tetrisLabelBackground")
+    font = UIFont.preferredFont(forTextStyle: .headline)
     numberOfLines = 0
     lineBreakMode = .byWordWrapping
-    textColor = .systemGray
+    textColor = UIColor(named: "tetrisOrange")
     textAlignment = .center
     text = NSLocalizedString("HIGH SCORES", comment: "List of the highest scores achieved")
   }
