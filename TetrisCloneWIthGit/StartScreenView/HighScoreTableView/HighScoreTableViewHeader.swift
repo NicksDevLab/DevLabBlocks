@@ -12,7 +12,7 @@ class HighScoreTableViewHeader: UILabel {
   override init(frame: CGRect) {
     super.init(frame: frame)
     backgroundColor = UIColor(named: "tetrisLabelBackground")
-    font = UIFont.preferredFont(forTextStyle: .headline)
+    font = UIFont.preferredFont(forTextStyle: .subheadline)
     numberOfLines = 0
     lineBreakMode = .byWordWrapping
     textColor = UIColor(named: "tetrisOrange")

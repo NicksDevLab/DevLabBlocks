@@ -13,8 +13,7 @@ class StartButton: SKSpriteNode {
   
   init(gameBoard: GameBoard) {
     self.gameBoard = gameBoard
-    super.init(texture: SKTexture(imageNamed: "startButton"), color: .white,
-               size: CGSize(width: gameBoard.frame.width, height: gameBoard.frame.height / 5))
+    super.init(texture: nil, color: UIColor.systemGreen, size: CGSize(width: gameBoard.frame.width / 2, height: 45))
     isUserInteractionEnabled = true
   }
   

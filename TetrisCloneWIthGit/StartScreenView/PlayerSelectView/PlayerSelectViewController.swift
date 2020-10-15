@@ -19,6 +19,8 @@ class PlayerSelectViewController: UIViewController {
   var tableViewHeightConstraint: NSLayoutConstraint!
   var newPlayerButtonHeightConstraint: NSLayoutConstraint!
   
+  var thisParent: StartScreenViewController!
+  
   var players: [Player] = []
   
   override func viewDidLoad() {
@@ -115,7 +117,11 @@ extension PlayerSelectViewController: UITableViewDelegate, UITableViewDataSource
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    UserDefaults.setValue(players[indexPath.row].name, forKey: "currentPlayer")
+    (UIApplication.shared.delegate as! AppDelegate).defaults.set(players[indexPath.row].name, forKey: "currentPlayer")
+    dismiss(animated: true) {
+      let gameVC = GameViewController()
+      self.thisParent.navigationController!.pushViewController(gameVC, animated: true)
+    }
   }
 }
 
@@ -131,6 +137,7 @@ extension PlayerSelectViewController {
   @objc
   private func addPlayer() {
     let vc = AddPlayerViewController()
+    vc.thisParent = self
     present(vc, animated: true, completion: nil)
   }
   

@@ -13,8 +13,7 @@ class ResetButton: SKSpriteNode {
   
   init(gameBoard: GameBoard) {
     self.gameBoard = gameBoard
-    super.init(texture: SKTexture(imageNamed: "resetButton"), color: .white,
-               size: CGSize(width: 50, height: 50))
+    super.init(texture: nil, color: UIColor.systemRed, size: CGSize(width: 45, height: 45))
     isUserInteractionEnabled = true
   }
   

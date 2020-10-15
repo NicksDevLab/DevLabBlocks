@@ -14,19 +14,16 @@ class PauseButton: SKSpriteNode {
   
   init(gameBoard: GameBoard) {
     self.gameBoard = gameBoard
-    super.init(texture: SKTexture(imageNamed: "pauseButton"), color: .white,
-               size: CGSize(width: 50, height: 50))
+    super.init(texture: nil, color: UIColor.systemYellow, size: CGSize(width: 45, height: 45))
     isUserInteractionEnabled = true
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     if isSelected == false {
       gameBoard?.boardState = .paused
-      self.texture = SKTexture(imageNamed: "playButton")
       isSelected = true
     } else {
       gameBoard?.boardState = .inPlay
-      self.texture = SKTexture(imageNamed: "pauseButton")
       isSelected = false
     }
   }

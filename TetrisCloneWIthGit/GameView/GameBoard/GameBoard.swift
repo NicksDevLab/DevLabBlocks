@@ -282,7 +282,6 @@ class GameBoard: SKShapeNode {
       
       if let parent = self.parent as? GameScene {
         var multiplier = 2
-        print(multiplier.description)
         for _ in 1...numberOfRowsDeleted {
           multiplier = multiplier * 2
         }

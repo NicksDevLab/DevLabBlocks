@@ -179,6 +179,7 @@ extension StartScreenViewController {
     fireHapticFeedback()
     customPresentationController = PlayerSelectVCTransitioningDelegate()
     let vc = PlayerSelectViewController()
+    vc.thisParent = self
     vc.modalPresentationStyle = .custom
     vc.transitioningDelegate = customPresentationController
     present(vc, animated: true, completion: nil)

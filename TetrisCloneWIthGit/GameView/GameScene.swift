@@ -18,15 +18,17 @@ class GameScene: SKScene {
   var resetButton: ResetButton!
   var pauseButton: PauseButton!
   
+  var currentPlayer = (UIApplication.shared.delegate as! AppDelegate).defaults.string(forKey: "currentPlayer") ?? ""
+  
   var score = 0 {
     willSet(newValue) {
-      currentScoreLabel.text = "SCORE: \(newValue)"
+      currentScoreLabel.text = "\(currentPlayer) - Score: \(newValue)"
     }
   }
   
   var level = 1 {
     willSet(newValue) {
-      currentLevelLabel.text = "LEVEL: \(newValue)"
+      currentLevelLabel.text = "Level: \(newValue)"
     }
   }
   
@@ -39,12 +41,13 @@ class GameScene: SKScene {
   
   private func setupScoreBoard() {
     
-    currentScoreLabel = SKLabelNode(text: "SCORE: \(score)")
+    currentScoreLabel = SKLabelNode(text: "\(currentPlayer) - Score: \(score)")
+    
     currentScoreLabel.position = CGPoint(x: gameBoard.xPositions.first! + (currentScoreLabel.frame.width / 2),
                                          y: 20)
     scoreBoardNode.addChild(currentScoreLabel)
     
-    currentLevelLabel = SKLabelNode(text: "LEVEL: \(level)")
+    currentLevelLabel = SKLabelNode(text: "Level: \(level)")
     currentLevelLabel.position = CGPoint(x: gameBoard.xPositions.first! + (currentLevelLabel.frame.width / 2),
                                          y: -20)
     scoreBoardNode.addChild(currentLevelLabel)
@@ -79,7 +82,7 @@ class GameScene: SKScene {
   
   func presentStartButton() {
     startButton = StartButton(gameBoard: gameBoard)
-    startButton.position = CGPoint(x: view!.frame.width / 2, y: view!.frame.height / 8)
+    startButton.position = CGPoint(x: view!.frame.width / 2, y: view!.frame.height / 3)
     addChild(startButton)
   }
   
