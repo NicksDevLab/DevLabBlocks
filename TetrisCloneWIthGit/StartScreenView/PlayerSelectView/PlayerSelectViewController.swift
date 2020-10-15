@@ -112,7 +112,7 @@ extension PlayerSelectViewController: UITableViewDelegate, UITableViewDataSource
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: HighScoreTableViewCell.reuseID) as! HighScoreTableViewCell
-    cell.textLabel?.text = players[indexPath.row].name
+    cell.textLabel?.text = "\(players[indexPath.row].name ?? "NO NAME") - \(players[indexPath.row].topScore ?? "NO SCORE")"
     return cell
   }
   

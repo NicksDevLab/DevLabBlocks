@@ -106,11 +106,34 @@ class GameBoard: SKShapeNode {
   
   func resetGame() {
     boardState = .notInPlay
+    saveData()
     activeGamePiece?.removeFromParent()
     activeGamePiece = nil
     occupiedPositions = [:]
     setPiecesNode.removeAllChildren()
     currentLevelSpeed = 40
+  }
+  
+  func saveData() {
+    if let parent = self.parent as? GameScene {
+      let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+      let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
+      fetchRequest.predicate = NSPredicate(format: "name = %@", parent.currentPlayer)
+      do {
+        let fetchResult = try managedObjectContext.fetch(fetchRequest) as! [NSManagedObject]
+        if fetchResult.count != 0 {
+          let player = fetchResult[0]
+          let lastScore = String(describing: player.value(forKey: "topScore"))
+          if parent.score > Int(lastScore) ?? 0 {
+            player.setValue(String(describing: parent.score), forKey: "topScore")
+          }
+          player.setValue(Date(), forKey: "lastPlayed")
+          try managedObjectContext.save()
+        }
+      } catch {
+        print(error)
+      }
+    }
   }
   
   func addGamePiece() {
@@ -218,17 +241,7 @@ class GameBoard: SKShapeNode {
       //Check for game over condition
       if position.y >= yPositions.last! && pieceIsSet {
         boardState = .gameOver
-        let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let scoreEntry = NSEntityDescription.insertNewObject(forEntityName: "Player", into: managedObjectContext)
-        if let parent = self.parent as? GameScene {
-          scoreEntry.setValue(parent.score, forKey: "topScore")
-        }
-        // TODO: Save user name to core data.
-        do {
-          try managedObjectContext.save()
-        } catch {
-          fatalError("Failure to save context: \(error)")
-        }
+        saveData()
         return
       }
     }
