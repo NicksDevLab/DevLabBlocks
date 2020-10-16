@@ -148,8 +148,9 @@ extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource 
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: HighScoreTableViewCell.reuseID)!
-    cell.textLabel?.text = "\(players[indexPath.row].name ?? "NO NAME") - \(players[indexPath.row].topScore ?? "NO SCORE")"
+    let cell = tableView.dequeueReusableCell(withIdentifier: HighScoreTableViewCell.reuseID) as! HighScoreTableViewCell
+    cell.nameLabel.text = "\(players[indexPath.row].name!)"
+    cell.scoreLabel.text = "\(players[indexPath.row].topScore!)"
     return cell
   }
   
@@ -166,6 +167,9 @@ extension StartScreenViewController {
       players = try context.fetch(playerFetchRequest) as! [Player]
       players.sort{ (first, second) -> Bool in
         return Int(first.topScore!)! > Int(second.topScore!)!
+      }
+      players.removeAll() { player in
+        return Int(player.topScore!)! <= 0
       }
       scoreTableView.reloadData()
     }
