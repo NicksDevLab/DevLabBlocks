@@ -162,11 +162,11 @@ extension StartScreenViewController {
   private func retreiveCoreData() {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let playerFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
-    playerFetchRequest.sortDescriptors = [
-      NSSortDescriptor(key: "topScore", ascending: false)
-    ]
     do {
       players = try context.fetch(playerFetchRequest) as! [Player]
+      players.sort{ (first, second) -> Bool in
+        return Int(first.topScore!)! > Int(second.topScore!)!
+      }
       scoreTableView.reloadData()
     }
     catch {

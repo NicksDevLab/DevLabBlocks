@@ -122,9 +122,8 @@ class GameBoard: SKShapeNode {
       do {
         let fetchResult = try managedObjectContext.fetch(fetchRequest) as! [NSManagedObject]
         if fetchResult.count != 0 {
-          let player = fetchResult[0]
-          let lastScore = String(describing: player.value(forKey: "topScore"))
-          if parent.score > Int(lastScore) ?? 0 {
+          let player = fetchResult[0] as! Player
+          if parent.score > Int(player.topScore!)! {
             player.setValue(String(describing: parent.score), forKey: "topScore")
           }
           player.setValue(Date(), forKey: "lastPlayed")
