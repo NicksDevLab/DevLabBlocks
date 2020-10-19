@@ -20,11 +20,12 @@ class ResetButton: SKSpriteNode {
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     gameBoard?.resetGame()
     if let parent = self.parent as? GameScene {
-      parent.score = 0
-      parent.level = 0
-      parent.presentStartButton()
-      parent.resetButton.removeFromParent()
-      parent.pauseButton.removeFromParent()
+      parent.gameOver()
+//      parent.score = 0
+//      parent.level = 0
+//      parent.presentStartButton()
+//      parent.resetButton.removeFromParent()
+//      parent.pauseButton.removeFromParent()
     }
   }
   

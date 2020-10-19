@@ -28,11 +28,17 @@ class GameViewController: UIViewController {
       skView.showsFPS = true
       skView.showsNodeCount = true
       skView.showsPhysics = true
-      
       gameScene = GameScene(size: skView.frame.size)
       gameScene.scaleMode = .aspectFill
 
       skView.presentScene(gameScene)
+    }
+  }
+  
+  
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: .current) != nil {
+      gameScene.gameBoard.prepareForUIUpdate()
     }
   }
   

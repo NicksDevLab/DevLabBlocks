@@ -7,6 +7,7 @@
 
 import SpriteKit
 import UIKit
+import CoreData
 
 
 class GameScene: SKScene {
@@ -34,21 +35,33 @@ class GameScene: SKScene {
   }
   
   override func didMove(to view: SKView) {
+    backgroundColor = .systemGray6
     setupGameBoard()
     setupScoreBoard()
     setupSwipeGestures()
     presentStartButton()
+    
+    
+  }
+  
+  
+  private func setupGameBoard() {
+    gameBoard = GameBoard(viewFrame: self.view!.frame)
+    addChild(gameBoard!)
   }
   
   private func setupScoreBoard() {
     
     currentScoreLabel = SKLabelNode(text: "\(currentPlayer) - Score: \(score)")
-    
+    currentScoreLabel.fontName = UIFont.systemFont(ofSize: 36, weight: .bold).fontName
+    currentScoreLabel.fontColor = .systemBlue
     currentScoreLabel.position = CGPoint(x: gameBoard.xPositions.first! + (currentScoreLabel.frame.width / 2),
                                          y: 20)
     scoreBoardNode.addChild(currentScoreLabel)
     
     currentLevelLabel = SKLabelNode(text: "Level: \(level)")
+    currentLevelLabel.fontName = UIFont.systemFont(ofSize: 36, weight: .bold).fontName
+    currentLevelLabel.fontColor = .systemBlue
     currentLevelLabel.position = CGPoint(x: gameBoard.xPositions.first! + (currentLevelLabel.frame.width / 2),
                                          y: -20)
     scoreBoardNode.addChild(currentLevelLabel)
@@ -56,11 +69,6 @@ class GameScene: SKScene {
     scoreBoardNode.position = CGPoint(x: self.view!.frame.minX, y: self.view!.frame.height * 0.9)
     scoreBoardNode.setScale(0.75)
     self.addChild(scoreBoardNode)
-  }
-  
-  private func setupGameBoard() {
-    gameBoard = GameBoard(viewFrame: self.view!.frame)
-    addChild(gameBoard!)
   }
   
   private func setupSwipeGestures() {
@@ -98,6 +106,22 @@ class GameScene: SKScene {
     pauseButton.position = CGPoint(x: view!.frame.width * 0.66, y: view!.frame.height / 10)
     addChild(pauseButton)
   }
+  
+  var time = 0
+  override func update(_ currentTime: TimeInterval) {
+    time += 1
+    if gameBoard?.boardState == .inPlay {
+      if time % gameBoard.gameSpeed == 0 {
+        gameBoard.movePiece(.down)
+      }
+    }
+  }
+}
+
+
+
+// MARK: Methods Extension
+extension GameScene {
   
   @objc
   func movePiece(_ sender: UISwipeGestureRecognizer) {
@@ -137,13 +161,54 @@ class GameScene: SKScene {
     }
   }
   
-  var time = 0
-  override func update(_ currentTime: TimeInterval) {
-    time += 1
-    if gameBoard?.boardState == .inPlay {
-      if time % gameBoard.gameSpeed == 0 {
-        gameBoard.movePiece(.down)
+  func saveData() {
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
+    fetchRequest.predicate = NSPredicate(format: "name = %@", currentPlayer)
+    do {
+      let fetchResult = try managedObjectContext.fetch(fetchRequest) as! [NSManagedObject]
+      if fetchResult.count != 0 {
+        let player = fetchResult[0] as! Player
+        if score > Int(player.topScore!)! {
+          player.setValue(String(describing: score), forKey: "topScore")
+        }
+        player.setValue(Date(), forKey: "lastPlayed")
+        try managedObjectContext.save()
       }
+    } catch {
+      print(error)
     }
   }
+  
+  func gameOver() {
+    let gameOverView = UIView()
+    gameOverView.translatesAutoresizingMaskIntoConstraints = false
+    gameOverView.backgroundColor = .green
+    view?.addSubview(gameOverView)
+    
+    let button = UIButton()
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.backgroundColor = .purple
+    button.setTitle("Home", for: .normal)
+    button.addTarget(self, action: #selector(goToHomeScreen), for: .touchUpInside)
+    gameOverView.addSubview(button)
+    
+    NSLayoutConstraint.activate([
+      gameOverView.centerXAnchor.constraint(equalTo: view!.centerXAnchor),
+      gameOverView.centerYAnchor.constraint(equalTo: view!.centerYAnchor),
+      gameOverView.widthAnchor.constraint(equalToConstant: view!.frame.width * 0.8),
+      gameOverView.heightAnchor.constraint(equalToConstant: view!.frame.width * 0.8),
+      
+      button.centerXAnchor.constraint(equalTo: gameOverView.centerXAnchor),
+      button.bottomAnchor.constraint(equalTo: gameOverView.bottomAnchor, constant: -25)
+    ])
+    
+  }
+  
+  @objc
+  func goToHomeScreen() {
+    let navController = (UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).navigationController
+    navController?.popToRootViewController(animated: true)
+  }
+  
 }

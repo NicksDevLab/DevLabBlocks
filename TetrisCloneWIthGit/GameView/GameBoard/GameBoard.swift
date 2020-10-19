@@ -6,6 +6,7 @@
 //
 
 import SpriteKit
+import UIKit
 import CoreData
 
 enum BoardState {
@@ -30,6 +31,25 @@ class GameBoard: SKShapeNode {
   var gameSpeed = 40
   
   var setPiecesNode = SKNode()
+  
+  func prepareForUIUpdate() {
+    boardState = .paused
+    let defaults = (UIApplication.shared.delegate as! AppDelegate).defaults
+    defaults.set(occupiedPositions, forKey: "occupiedPositions")
+    defaults.set(activeGamePiece, forKey: "activeGamePiece")
+    defaults.set(currentLevelSpeed, forKey: "currentLevelSpeed")
+    defaults.set(gameSpeed, forKey: "gameSpeed")
+    defaults.set(setPiecesNode, forKey: "setPiecesNode")
+  }
+  
+  func restoreFromUIUpdate() {
+    let defaults = (UIApplication.shared.delegate as! AppDelegate).defaults
+    occupiedPositions = defaults.object(forKey: "occupiedPositions") as! [CGFloat : Set<CGFloat>]
+    activeGamePiece = defaults.object(forKey: "activeGamePiece") as! TetrisPiece
+    currentLevelSpeed = defaults.integer(forKey: "currentLevelSpeed")
+    gameSpeed = defaults.integer(forKey: "gameSpeed")
+    setPiecesNode = defaults.object(forKey: "setPiecesNode") as! SKNode
+  }
   
   override init() {
     super.init()
@@ -60,8 +80,9 @@ class GameBoard: SKShapeNode {
     borderPath.addLine(to: CGPoint(x: gameBoardXOffset + gameBoardWidth, y: gameBoardYOffset + gameBoardHieght))
     borderPath.addLine(to: CGPoint(x: gameBoardXOffset + gameBoardWidth, y: gameBoardYOffset))
     borderPath.closeSubpath()
-    
     self.path = borderPath
+    
+    fillColor = .systemBackground
     
     let columns: [CGFloat] = Array(stride(from: gameBoardXOffset,
                                              to: self.frame.maxX,
@@ -98,6 +119,11 @@ class GameBoard: SKShapeNode {
     
   }
   
+  @objc
+  func changeAppearance() {
+    
+  }
+  
   
   func startGame() {
     addGamePiece()
@@ -106,33 +132,14 @@ class GameBoard: SKShapeNode {
   
   func resetGame() {
     boardState = .notInPlay
-    saveData()
+    if let parent = self.parent as? GameScene {
+      parent.saveData()
+    }
     activeGamePiece?.removeFromParent()
     activeGamePiece = nil
     occupiedPositions = [:]
     setPiecesNode.removeAllChildren()
     currentLevelSpeed = 40
-  }
-  
-  func saveData() {
-    if let parent = self.parent as? GameScene {
-      let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-      let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
-      fetchRequest.predicate = NSPredicate(format: "name = %@", parent.currentPlayer)
-      do {
-        let fetchResult = try managedObjectContext.fetch(fetchRequest) as! [NSManagedObject]
-        if fetchResult.count != 0 {
-          let player = fetchResult[0] as! Player
-          if parent.score > Int(player.topScore!)! {
-            player.setValue(String(describing: parent.score), forKey: "topScore")
-          }
-          player.setValue(Date(), forKey: "lastPlayed")
-          try managedObjectContext.save()
-        }
-      } catch {
-        print(error)
-      }
-    }
   }
   
   func addGamePiece() {
@@ -240,7 +247,10 @@ class GameBoard: SKShapeNode {
       //Check for game over condition
       if position.y >= yPositions.last! && pieceIsSet {
         boardState = .gameOver
-        saveData()
+        if let parent = self.parent as? GameScene {
+          parent.saveData()
+          parent.gameOver()
+        }
         return
       }
     }
