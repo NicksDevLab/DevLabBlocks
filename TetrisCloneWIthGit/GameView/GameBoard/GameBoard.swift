@@ -32,24 +32,6 @@ class GameBoard: SKShapeNode {
   
   var setPiecesNode = SKNode()
   
-  func prepareForUIUpdate() {
-    boardState = .paused
-    let defaults = (UIApplication.shared.delegate as! AppDelegate).defaults
-    defaults.set(occupiedPositions, forKey: "occupiedPositions")
-    defaults.set(activeGamePiece, forKey: "activeGamePiece")
-    defaults.set(currentLevelSpeed, forKey: "currentLevelSpeed")
-    defaults.set(gameSpeed, forKey: "gameSpeed")
-    defaults.set(setPiecesNode, forKey: "setPiecesNode")
-  }
-  
-  func restoreFromUIUpdate() {
-    let defaults = (UIApplication.shared.delegate as! AppDelegate).defaults
-    occupiedPositions = defaults.object(forKey: "occupiedPositions") as! [CGFloat : Set<CGFloat>]
-    activeGamePiece = defaults.object(forKey: "activeGamePiece") as! TetrisPiece
-    currentLevelSpeed = defaults.integer(forKey: "currentLevelSpeed")
-    gameSpeed = defaults.integer(forKey: "gameSpeed")
-    setPiecesNode = defaults.object(forKey: "setPiecesNode") as! SKNode
-  }
   
   override init() {
     super.init()

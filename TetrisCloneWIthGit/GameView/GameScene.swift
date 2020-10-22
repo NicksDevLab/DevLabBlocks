@@ -54,14 +54,14 @@ class GameScene: SKScene {
     
     currentScoreLabel = SKLabelNode(text: "\(currentPlayer) - Score: \(score)")
     currentScoreLabel.fontName = UIFont.systemFont(ofSize: 36, weight: .bold).fontName
-    currentScoreLabel.fontColor = .systemBlue
+    currentScoreLabel.fontColor = .systemGray
     currentScoreLabel.position = CGPoint(x: gameBoard.xPositions.first! + (currentScoreLabel.frame.width / 2),
                                          y: 20)
     scoreBoardNode.addChild(currentScoreLabel)
     
     currentLevelLabel = SKLabelNode(text: "Level: \(level)")
     currentLevelLabel.fontName = UIFont.systemFont(ofSize: 36, weight: .bold).fontName
-    currentLevelLabel.fontColor = .systemBlue
+    currentLevelLabel.fontColor = .systemGray
     currentLevelLabel.position = CGPoint(x: gameBoard.xPositions.first! + (currentLevelLabel.frame.width / 2),
                                          y: -20)
     scoreBoardNode.addChild(currentLevelLabel)

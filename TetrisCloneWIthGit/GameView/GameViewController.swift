@@ -21,7 +21,10 @@ class GameViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-   
+    setupSKView()
+  }
+  
+  private func setupSKView() {
     if let skView = self.view as! SKView? {
 
       skView.ignoresSiblingOrder = true
@@ -38,7 +41,6 @@ class GameViewController: UIViewController {
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: .current) != nil {
-      gameScene.gameBoard.prepareForUIUpdate()
     }
   }
   
