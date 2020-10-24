@@ -11,6 +11,9 @@ class HighScoreTableViewCell: UITableViewCell {
   
   static let reuseID = "HighScoreTableViewCell"
   
+  var isAccessibleSize = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+  
+  var stackView: UIStackView!
   var nameLabel: UILabel!
   var scoreLabel: UILabel!
   
@@ -21,40 +24,44 @@ class HighScoreTableViewCell: UITableViewCell {
     
     setupNameLabel()
     setupScoreLabel()
-    setupConstraints()
+    setupStackView()
+  }
+  
+  private func setupStackView() {
+    stackView = UIStackView(arrangedSubviews: [nameLabel, scoreLabel])
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.axis = isAccessibleSize ? .vertical : .horizontal
+    contentView.addSubview(stackView)
+    NSLayoutConstraint.activate([
+      stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+      stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+      stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+      stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+    ])
   }
   
   private func setupNameLabel() {
     nameLabel = UILabel()
     nameLabel.translatesAutoresizingMaskIntoConstraints = false
-    nameLabel.font = UIFont.preferredFont(forTextStyle: .body)
-    contentView.addSubview(nameLabel)
+    nameLabel.font = UIFont.preferredFont(forTextStyle: .title1)
+    nameLabel.textAlignment = isAccessibleSize ? .center : .left
   }
   
   private func setupScoreLabel() {
     scoreLabel = UILabel()
     scoreLabel.translatesAutoresizingMaskIntoConstraints = false
-    scoreLabel.textAlignment = .right
-    scoreLabel.font = UIFont.preferredFont(forTextStyle: .body)
-    contentView.addSubview(scoreLabel)
-  }
-  
-  private func setupConstraints() {
-    NSLayoutConstraint.activate([
-      nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-      nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-      nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-      nameLabel.trailingAnchor.constraint(equalTo: contentView.centerXAnchor),
-      
-      scoreLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-      scoreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-      scoreLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-      scoreLabel.leadingAnchor.constraint(equalTo: contentView.centerXAnchor)
-    ])
+    scoreLabel.font = UIFont.preferredFont(forTextStyle: .title1)
+    scoreLabel.textAlignment = isAccessibleSize ? .center : .right
   }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    nameLabel.font = UIFont.preferredFont(forTextStyle: .body)
+    isAccessibleSize = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+    stackView.axis = isAccessibleSize ? .vertical : .horizontal
+    nameLabel.font = UIFont.preferredFont(forTextStyle: .title1)
+    nameLabel.textAlignment = isAccessibleSize ? .center : .left
+    scoreLabel.font = UIFont.preferredFont(forTextStyle: .title1)
+    scoreLabel.textAlignment = isAccessibleSize ? .center : .right
+    stackView.distribution = isAccessibleSize ? .equalCentering : .equalSpacing
   }
   
   required init?(coder: NSCoder) {

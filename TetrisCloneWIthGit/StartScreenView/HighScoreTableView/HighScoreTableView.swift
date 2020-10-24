@@ -19,6 +19,12 @@ class HighScoreTableView: UITableView {
     backgroundColor = .systemBackground
     
     register(HighScoreTableViewCell.self, forCellReuseIdentifier: HighScoreTableViewCell.reuseID)
+    rowHeight = UITableView.automaticDimension
+    estimatedRowHeight = UITableView.automaticDimension
+    
+    register(TetrisTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: TetrisTableViewHeaderView.reuseID)
+    sectionHeaderHeight = UITableView.automaticDimension
+    estimatedSectionHeaderHeight = UITableView.automaticDimension
   }
   
   required init?(coder: NSCoder) {

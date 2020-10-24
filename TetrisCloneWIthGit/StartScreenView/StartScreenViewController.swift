@@ -65,6 +65,7 @@ class StartScreenViewController: UIViewController {
     scoreTableView = HighScoreTableView(frame: .zero)
     scoreTableView.delegate = self
     scoreTableView.dataSource = self
+    scoreTableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
     scoreTableViewWidthConstraint = scoreTableView.widthAnchor.constraint(equalToConstant: isFontAccessible ? safeFrame.width * 0.9 : safeFrame.width * 0.7)
     view.addSubview(scoreTableView)
     scoreTableView.sizeToFit()
@@ -128,20 +129,12 @@ class StartScreenViewController: UIViewController {
 // MARK: Extension for tableView
 extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource {
   
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    if isFontAccessible {
-      return 50
-    } else {
-      return 25
-    }
-  }
-  
-  func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-    return 35
-  }
-  
+//  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//    return
+//  }
+//
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let label = HighScoreTableViewHeader()
+    let label = tableView.dequeueReusableHeaderFooterView(withIdentifier: TetrisTableViewHeaderView.reuseID) as! TetrisTableViewHeaderView
     return label
   }
   
@@ -194,6 +187,8 @@ extension StartScreenViewController {
   @objc
   func goToSettingsViewController() {
     fireHapticFeedback()
+    let settingsVC = SettingsViewController()
+    navigationController?.pushViewController(settingsVC, animated: true)
   }
   
   func fireHapticFeedback() {

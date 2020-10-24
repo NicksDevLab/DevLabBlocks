@@ -41,6 +41,15 @@ class PlayerSelectViewController: UIViewController {
   private func setupTableView() {
     tableView.delegate = self
     tableView.dataSource = self
+    
+    tableView.register(PlayerSelectTableViewCell.self, forCellReuseIdentifier: PlayerSelectTableViewCell.reuseID)
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.estimatedRowHeight = UITableView.automaticDimension
+    
+    tableView.register(TetrisTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: TetrisTableViewHeaderView.reuseID)
+    tableView.sectionHeaderHeight = UITableView.automaticDimension
+    tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
+    
     tableViewHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.height * 0.35 : view.frame.height * 0.4)
     view.addSubview(tableView)
   }
@@ -55,7 +64,7 @@ class PlayerSelectViewController: UIViewController {
   
   private func setupConstraints() {
     NSLayoutConstraint.activate([
-      tableView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8),
+      tableView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.6),
       tableViewHeightConstraint,
       tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.05),
@@ -83,26 +92,12 @@ class PlayerSelectViewController: UIViewController {
   }
 }
 
-
-
 // MARK: TableViewDelegate Extension
 extension PlayerSelectViewController: UITableViewDelegate, UITableViewDataSource {
   
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    if isFontAccessible {
-      return 60
-    } else {
-      return 30
-    }
-  }
-  
-  func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-    return 45
-  }
-  
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let view = HighScoreTableViewHeader()
-    view.text = NSLocalizedString("Select Player", comment: "List of the highest scores achieved")
+    let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TetrisTableViewHeaderView.reuseID) as! TetrisTableViewHeaderView
+    view.label.text = "Select Player"
     return view
   }
   
@@ -111,13 +106,13 @@ extension PlayerSelectViewController: UITableViewDelegate, UITableViewDataSource
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: HighScoreTableViewCell.reuseID) as! HighScoreTableViewCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: PlayerSelectTableViewCell.reuseID) as! PlayerSelectTableViewCell
     cell.nameLabel.text = players[indexPath.row].name
-    cell.scoreLabel.text = players[indexPath.row].topScore
     return cell
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard players[indexPath.row].name != "" else { return }
     (UIApplication.shared.delegate as! AppDelegate).defaults.set(players[indexPath.row].name, forKey: "currentPlayer")
     dismiss(animated: true) {
       let gameVC = GameViewController()
