@@ -11,13 +11,59 @@ import CoreData
 
 class SettingsViewController: UIViewController {
   
+  var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+  
+  var backButton: UIButton!
+  var backButtonWidthConstraint: NSLayoutConstraint!
+  var backButtonHeightConstraint: NSLayoutConstraint!
+  
   var tableView: UITableView!
+  
+  var soundButton: UIButton!
+  var soundButtonWidthConstraint: NSLayoutConstraint!
+  var soundButtonHeightConstraint: NSLayoutConstraint!
+  
+  var modeButton: UIButton!
+  var modeButtonWidthConstraint: NSLayoutConstraint!
+  var modeButtonHeightConstraint: NSLayoutConstraint!
+  var modeButtonTopConstraint: NSLayoutConstraint!
+  
+  let spaceing: CGFloat = 12
+  
   var players: [Player] = []
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .systemGray6
+    setupBackButton()
     setupTableView()
+    setupSoundButton()
+    setupModeButton()
     retreiveCoreData()
+  }
+  
+  private func setupBackButton() {
+    backButton = UIButton()
+    backButton.translatesAutoresizingMaskIntoConstraints = false
+    backButton.backgroundColor = UIColor(named: "tetrisLabelBackground")
+    backButton.setTitle("BACK", for: .normal)
+    backButton.setTitleColor(.red, for: .normal)
+    backButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
+    backButton.layer.cornerRadius = 10
+    backButton.layer.borderWidth = 2
+    backButton.layer.borderColor = UIColor(named: "tetrisMagenta")?.cgColor
+    backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+    
+    backButtonWidthConstraint = backButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.45 : view.frame.width * 0.25)
+    backButtonHeightConstraint = backButton.heightAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.21 : view.frame.width * 0.15)
+    
+    view.addSubview(backButton)
+    NSLayoutConstraint.activate([
+      backButtonWidthConstraint,
+      backButtonHeightConstraint,
+      backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spaceing),
+      backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: spaceing)
+    ])
   }
   
   private func setupTableView() {
@@ -25,7 +71,9 @@ class SettingsViewController: UIViewController {
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.delegate = self
     tableView.dataSource = self
-    tableView.layer.cornerRadius = 12
+    tableView.layer.cornerRadius = 10
+    tableView.layer.borderWidth = 2
+    tableView.layer.borderColor = UIColor(named: "tetrisGreen")?.cgColor
     
     tableView.register(SettingsViewPlayerTableViewCell.self, forCellReuseIdentifier: SettingsViewPlayerTableViewCell.reuseID)
     tableView.rowHeight = UITableView.automaticDimension
@@ -37,17 +85,89 @@ class SettingsViewController: UIViewController {
     
     view.addSubview(tableView)
     NSLayoutConstraint.activate([
-      tableView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.7),
-      tableView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9),
+      tableView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.52),
+      tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spaceing),
+      tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spaceing),
       tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+      tableView.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: spaceing)
     ])
   }
+  
+  private func setupSoundButton() {
     
-  override func viewDidAppear(_ animated: Bool) {
-    self.navigationController?.isNavigationBarHidden = false
+    soundButton = UIButton()
+    soundButton.translatesAutoresizingMaskIntoConstraints = false
+    soundButton.backgroundColor = UIColor(named: "tetrisLabelBackground")
+    soundButton.setTitle("SOUND ON", for: .normal)
+    soundButton.setTitleColor(.red, for: .normal)
+    soundButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
+    soundButton.titleLabel?.numberOfLines = 0
+    soundButton.titleLabel?.lineBreakMode = .byWordWrapping
+    soundButton.titleLabel?.textAlignment = .center
+    soundButton.layer.cornerRadius = 10
+    soundButton.layer.borderWidth = 2
+    soundButton.layer.borderColor = UIColor(named: "tetrisPurple")?.cgColor
+    soundButton.addTarget(self, action: #selector(toggleSound(sender:)), for: .touchUpInside)
+    soundButton.isSelected = UserDefaults.standard.bool(forKey: "isSoundOn")
+    
+    soundButtonWidthConstraint = soundButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width - (spaceing * 2) : view.frame.width * 0.4)
+    soundButtonHeightConstraint = soundButton.heightAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.2 : view.frame.width * 0.4)
+    
+    view.addSubview(soundButton)
+    NSLayoutConstraint.activate([
+      soundButtonWidthConstraint,
+      soundButtonHeightConstraint,
+      soundButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spaceing),
+      soundButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: spaceing)
+    ])
   }
-
+  
+  private func setupModeButton() {
+    
+    modeButton = UIButton()
+    modeButton.translatesAutoresizingMaskIntoConstraints = false
+    modeButton.backgroundColor = UIColor(named: "tetrisLabelBackground")
+    modeButton.setTitle(isFontAccessible ? "DARK" : "DARK MODE", for: .normal)
+    modeButton.setTitleColor(.red, for: .normal)
+    modeButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
+    modeButton.titleLabel?.numberOfLines = 0
+    modeButton.titleLabel?.lineBreakMode = .byWordWrapping
+    modeButton.titleLabel?.textAlignment = .center
+    modeButton.layer.cornerRadius = 10
+    modeButton.layer.borderWidth = 2
+    modeButton.layer.borderColor = UIColor(named: "tetrisPurple")?.cgColor
+    modeButton.addTarget(self, action: #selector(toggleMode(sender:)), for: .touchUpInside)
+    
+    modeButtonWidthConstraint = modeButton.widthAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width - spaceing : view.frame.width * 0.4)
+    modeButtonHeightConstraint = modeButton.heightAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.2 : view.frame.width * 0.4)
+    modeButtonTopConstraint = modeButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: isFontAccessible ? (view.frame.width * 0.2) - (spaceing * 2) : spaceing)
+    
+    view.addSubview(modeButton)
+    NSLayoutConstraint.activate([
+      modeButtonWidthConstraint,
+      modeButtonHeightConstraint,
+      modeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spaceing),
+      modeButtonTopConstraint
+    ])
+  }
+  
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+    
+    backButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
+    backButtonWidthConstraint.constant = isFontAccessible ? view.frame.width * 0.45 : view.frame.width * 0.25
+    backButtonHeightConstraint.constant = isFontAccessible ? view.frame.width * 0.21 : view.frame.width * 0.15
+    
+    soundButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
+    soundButtonWidthConstraint.constant = isFontAccessible ? view.frame.width - (spaceing * 2) : view.frame.width * 0.4
+    soundButtonHeightConstraint.constant = isFontAccessible ? view.frame.width * 0.2 : view.frame.width * 0.4
+    
+    modeButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
+    modeButton.setTitle(isFontAccessible ? "DARK" : "DARK MODE", for: .normal)
+    modeButtonWidthConstraint.constant =  isFontAccessible ? view.frame.width - (spaceing * 2) : view.frame.width * 0.4
+    modeButtonHeightConstraint.constant = isFontAccessible ? view.frame.width * 0.2 : view.frame.width * 0.4
+    modeButtonTopConstraint.constant = isFontAccessible ? (view.frame.height * 0.2) - (spaceing * 2) : spaceing
+  }
 }
 
 
@@ -82,6 +202,10 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
   }
   
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    return true
+  }
+  
 }
 
 
@@ -114,4 +238,26 @@ extension SettingsViewController {
       print(error)
     }
   }
+  
+  @objc
+  private func back() {
+    navigationController?.popViewController(animated: true)
+  }
+  
+  @objc
+  private func toggleSound(sender: UIButton) {
+    if sender.isSelected {
+      UserDefaults.standard.set(true, forKey: "isSoundOn")
+    } else {
+      UserDefaults.standard.set(false, forKey: "isSoundOn")
+    }
+    
+  }
+  
+  @objc
+  private func toggleMode(sender: UIButton) {
+    
+  }
 }
+
+

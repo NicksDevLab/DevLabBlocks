@@ -28,6 +28,12 @@ class StartScreenButton: UIButton {
     setTitleColor(UIColor(named: "tetrisGreen"), for: .normal)
   }
   
+  init(image: UIImage) {
+    super.init(frame: .zero)
+    translatesAutoresizingMaskIntoConstraints = false
+    setImage(image, for: .normal)
+  }
+  
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
   }

@@ -57,14 +57,15 @@ class GameBoard: SKShapeNode {
     let gameBoardYOffset = (viewFrame.height) * ((1.0 - screenHieghtAmount) / 2)
 
     let borderPath = CGMutablePath()
-    borderPath.move(to: CGPoint(x: gameBoardXOffset, y: gameBoardYOffset))
-    borderPath.addLine(to: CGPoint(x: gameBoardXOffset, y: gameBoardYOffset + gameBoardHieght))
-    borderPath.addLine(to: CGPoint(x: gameBoardXOffset + gameBoardWidth, y: gameBoardYOffset + gameBoardHieght))
-    borderPath.addLine(to: CGPoint(x: gameBoardXOffset + gameBoardWidth, y: gameBoardYOffset))
-    borderPath.closeSubpath()
+    borderPath.addRoundedRect(in: CGRect(x: gameBoardXOffset, y: gameBoardYOffset,
+                                         width: gameBoardWidth, height: gameBoardHieght),
+                              cornerWidth: 10,
+                              cornerHeight: 10)
     self.path = borderPath
-    
+    strokeColor = .green
+    lineWidth = 3
     fillColor = .systemBackground
+    
     
     let columns: [CGFloat] = Array(stride(from: gameBoardXOffset,
                                              to: self.frame.maxX,
@@ -86,12 +87,12 @@ class GameBoard: SKShapeNode {
     
     yPositions = y.map { $0.rounded(.down) }
     
-    for xPos in columns {
+    for xPos in columns[1...columns.count - 2] {
       let line = GameBoardGraphLine(xPos: xPos, fromY: gameBoardYOffset, toY: self.frame.maxY)
       self.addChild(line)
     }
     
-    for yPos in rows {
+    for yPos in rows[1...rows.count - 2] {
       let line = GameBoardGraphLine(yPos: yPos, fromX: gameBoardXOffset, toX: self.frame.maxX)
       self.addChild(line)
     }

@@ -13,13 +13,14 @@ import CoreData
 class GameScene: SKScene {
   
   var gameBoard: GameBoard!
-  var scoreBoardNode = SKNode()
+  var scoreNode = SKNode()
+  var scoreBoardNode: SKShapeNode!
   var currentScoreLabel: SKLabelNode!
   var currentLevelLabel: SKLabelNode!
-  var startButton: StartButton!
-  var resetButton: ResetButton!
-  var pauseButton: PauseButton!
+  var resetButton: SpriteButton!
+  var pauseButton: SpriteButton!
   
+  let navController = (UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).navigationController
   var currentPlayer = (UIApplication.shared.delegate as! AppDelegate).defaults.string(forKey: "currentPlayer") ?? ""
   
   var score = 0 {
@@ -39,9 +40,9 @@ class GameScene: SKScene {
     setupGameBoard()
     setupScoreBoard()
     setupSwipeGestures()
-    presentStartButton()
-    
-    
+    setupResetButton()
+    setupPauseButton()
+    gameBoard.startGame()
   }
   
   
@@ -52,23 +53,28 @@ class GameScene: SKScene {
   
   private func setupScoreBoard() {
     
+    scoreNode.position = CGPoint(x: gameBoard.xPositions.first! + (view!.frame.width * 0.35), y: view!.frame.height - (view!.frame.height * 0.075))
+    addChild(scoreNode)
+    
+    scoreBoardNode = SKShapeNode(rectOf: CGSize(width: view!.frame.width * 0.7, height: view!.frame.height * 0.1), cornerRadius: 10)
+    scoreBoardNode.lineWidth = 2
+    scoreBoardNode.strokeColor = UIColor(named: "tetrisBlue")!
+    scoreBoardNode.fillColor = UIColor(named: "tetrisLabelBackground")!
+    scoreNode.addChild(scoreBoardNode)
+                                 
     currentScoreLabel = SKLabelNode(text: "\(currentPlayer) - Score: \(score)")
     currentScoreLabel.fontName = UIFont.systemFont(ofSize: 36, weight: .bold).fontName
     currentScoreLabel.fontColor = .systemGray
-    currentScoreLabel.position = CGPoint(x: gameBoard.xPositions.first! + (currentScoreLabel.frame.width / 2),
+    currentScoreLabel.position = CGPoint(x:  0,
                                          y: 20)
-    scoreBoardNode.addChild(currentScoreLabel)
+    scoreNode.addChild(currentScoreLabel)
     
     currentLevelLabel = SKLabelNode(text: "Level: \(level)")
     currentLevelLabel.fontName = UIFont.systemFont(ofSize: 36, weight: .bold).fontName
     currentLevelLabel.fontColor = .systemGray
-    currentLevelLabel.position = CGPoint(x: gameBoard.xPositions.first! + (currentLevelLabel.frame.width / 2),
+    currentLevelLabel.position = CGPoint(x: 0,
                                          y: -20)
-    scoreBoardNode.addChild(currentLevelLabel)
-    
-    scoreBoardNode.position = CGPoint(x: self.view!.frame.minX, y: self.view!.frame.height * 0.9)
-    scoreBoardNode.setScale(0.75)
-    self.addChild(scoreBoardNode)
+    scoreNode.addChild(currentLevelLabel)
   }
   
   private func setupSwipeGestures() {
@@ -89,21 +95,15 @@ class GameScene: SKScene {
     self.view?.addGestureRecognizer(doubleTapGesture)
   }
   
-  func presentStartButton() {
-    startButton = StartButton(gameBoard: gameBoard)
-    startButton.position = CGPoint(x: view!.frame.width / 2, y: view!.frame.height / 3)
-    addChild(startButton)
-  }
-  
   func setupResetButton() {
-    resetButton = ResetButton(gameBoard: gameBoard)
-    resetButton.position = CGPoint(x: view!.frame.width * 0.33, y: view!.frame.height / 10)
+    resetButton = SpriteButton(view: view!, text: "RESET")
+    resetButton.position = CGPoint(x: view!.frame.width * 0.3, y: view!.frame.height / 12)
     addChild(resetButton)
   }
   
   func setupPauseButton() {
-    pauseButton = PauseButton(gameBoard: gameBoard)
-    pauseButton.position = CGPoint(x: view!.frame.width * 0.66, y: view!.frame.height / 10)
+    pauseButton = SpriteButton(view: view!, text: "PAUSE")
+    pauseButton.position = CGPoint(x: view!.frame.width * 0.7, y: view!.frame.height / 12)
     addChild(pauseButton)
   }
   
@@ -161,6 +161,13 @@ extension GameScene {
     }
   }
   
+  @objc
+  private func startGame() {
+    gameBoard.boardState = .inPlay
+    setupResetButton()
+    setupPauseButton()
+  }
+  
   func saveData() {
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
@@ -184,6 +191,7 @@ extension GameScene {
     let gameOverView = UIView()
     gameOverView.translatesAutoresizingMaskIntoConstraints = false
     gameOverView.backgroundColor = .green
+    gameOverView.layer.cornerRadius = 10
     view?.addSubview(gameOverView)
     
     let button = UIButton()

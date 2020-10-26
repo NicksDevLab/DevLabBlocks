@@ -23,9 +23,6 @@
 		011E291C25333CBC0044C8B4 /* TShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E291B25333CBC0044C8B4 /* TShape.swift */; };
 		011E291F25333CD60044C8B4 /* LShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E291E25333CD60044C8B4 /* LShape.swift */; };
 		011E292225333CF00044C8B4 /* LRShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E292125333CF00044C8B4 /* LRShape.swift */; };
-		011E292725333D590044C8B4 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E292625333D590044C8B4 /* StartButton.swift */; };
-		011E292A25333D730044C8B4 /* ResetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E292925333D730044C8B4 /* ResetButton.swift */; };
-		011E292D25333D880044C8B4 /* PauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E292C25333D880044C8B4 /* PauseButton.swift */; };
 		011E293225333DDA0044C8B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E293125333DDA0044C8B4 /* Extensions.swift */; };
 		011E293625333E040044C8B4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E293525333E040044C8B4 /* SettingsViewController.swift */; };
 		011E293B253340090044C8B4 /* Explode.sks in Resources */ = {isa = PBXBuildFile; fileRef = 011E293A253340090044C8B4 /* Explode.sks */; };
@@ -33,6 +30,7 @@
 		0183D881252C7367001DC8C9 /* HighScoreTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183D880252C7367001DC8C9 /* HighScoreTableView.swift */; };
 		0183D884252C7526001DC8C9 /* TetrisTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183D883252C7526001DC8C9 /* TetrisTableViewHeader.swift */; };
 		0183D888252C7CB1001DC8C9 /* HighScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183D887252C7CB1001DC8C9 /* HighScoreTableViewCell.swift */; };
+		019340332545F1470077EAD4 /* SpriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019340322545F1470077EAD4 /* SpriteButton.swift */; };
 		01957A69252B9FEA00802F58 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A68252B9FEA00802F58 /* StartScreenViewController.swift */; };
 		01957A6D252BA2DE00802F58 /* StartScreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A6C252BA2DE00802F58 /* StartScreenButton.swift */; };
 		01957A70252BA35000802F58 /* GameTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957A6F252BA35000802F58 /* GameTitleLabel.swift */; };
@@ -67,9 +65,6 @@
 		011E291B25333CBC0044C8B4 /* TShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShape.swift; sourceTree = "<group>"; };
 		011E291E25333CD60044C8B4 /* LShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LShape.swift; sourceTree = "<group>"; };
 		011E292125333CF00044C8B4 /* LRShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRShape.swift; sourceTree = "<group>"; };
-		011E292625333D590044C8B4 /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
-		011E292925333D730044C8B4 /* ResetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetButton.swift; sourceTree = "<group>"; };
-		011E292C25333D880044C8B4 /* PauseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseButton.swift; sourceTree = "<group>"; };
 		011E293125333DDA0044C8B4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		011E293525333E040044C8B4 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		011E293A253340090044C8B4 /* Explode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explode.sks; sourceTree = "<group>"; };
@@ -81,6 +76,7 @@
 		0183D880252C7367001DC8C9 /* HighScoreTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreTableView.swift; sourceTree = "<group>"; };
 		0183D883252C7526001DC8C9 /* TetrisTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TetrisTableViewHeader.swift; sourceTree = "<group>"; };
 		0183D887252C7CB1001DC8C9 /* HighScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreTableViewCell.swift; sourceTree = "<group>"; };
+		019340322545F1470077EAD4 /* SpriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteButton.swift; sourceTree = "<group>"; };
 		01957A68252B9FEA00802F58 /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		01957A6C252BA2DE00802F58 /* StartScreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenButton.swift; sourceTree = "<group>"; };
 		01957A6F252BA35000802F58 /* GameTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTitleLabel.swift; sourceTree = "<group>"; };
@@ -152,9 +148,7 @@
 		011E292F25333D9A0044C8B4 /* GameButtons */ = {
 			isa = PBXGroup;
 			children = (
-				011E292625333D590044C8B4 /* StartButton.swift */,
-				011E292925333D730044C8B4 /* ResetButton.swift */,
-				011E292C25333D880044C8B4 /* PauseButton.swift */,
+				019340322545F1470077EAD4 /* SpriteButton.swift */,
 			);
 			path = GameButtons;
 			sourceTree = "<group>";
@@ -325,12 +319,12 @@
 			files = (
 				01957A73252BA3AE00802F58 /* PlayerSelectViewController.swift in Sources */,
 				01F77DB0252B358800466962 /* AppDelegate.swift in Sources */,
-				011E292725333D590044C8B4 /* StartButton.swift in Sources */,
 				010495CB2534E99700947A28 /* PlayerSelectVCAnimationController.swift in Sources */,
 				011E290725333B050044C8B4 /* GamePieceGenerator.swift in Sources */,
 				01C53FED2535C9D000F54269 /* Player+CoreDataProperties.swift in Sources */,
 				011E290D25333C0F0044C8B4 /* TetrisPiece.swift in Sources */,
 				01C53FEC2535C9D000F54269 /* Player+CoreDataClass.swift in Sources */,
+				019340332545F1470077EAD4 /* SpriteButton.swift in Sources */,
 				0183D881252C7367001DC8C9 /* HighScoreTableView.swift in Sources */,
 				01ACFB792541A04400BEF848 /* PlayerSelectTableViewCell.swift in Sources */,
 				010495C72534E90800947A28 /* PlayerSelectVCTransitioningDelegate.swift in Sources */,
@@ -348,9 +342,7 @@
 				011E292225333CF00044C8B4 /* LRShape.swift in Sources */,
 				011E290A25333BEE0044C8B4 /* BaseNode.swift in Sources */,
 				01ACFB7F2544390700BEF848 /* SettingsViewPlayerTableViewCell.swift in Sources */,
-				011E292D25333D880044C8B4 /* PauseButton.swift in Sources */,
 				011E290225333ADA0044C8B4 /* GameBoardGraphLine.swift in Sources */,
-				011E292A25333D730044C8B4 /* ResetButton.swift in Sources */,
 				01957A6D252BA2DE00802F58 /* StartScreenButton.swift in Sources */,
 				011E291025333C310044C8B4 /* SquareShape.swift in Sources */,
 				011E293625333E040044C8B4 /* SettingsViewController.swift in Sources */,

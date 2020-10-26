@@ -27,19 +27,6 @@ class HighScoreTableViewCell: UITableViewCell {
     setupStackView()
   }
   
-  private func setupStackView() {
-    stackView = UIStackView(arrangedSubviews: [nameLabel, scoreLabel])
-    stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.axis = isAccessibleSize ? .vertical : .horizontal
-    contentView.addSubview(stackView)
-    NSLayoutConstraint.activate([
-      stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-      stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-      stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-      stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-    ])
-  }
-  
   private func setupNameLabel() {
     nameLabel = UILabel()
     nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +39,19 @@ class HighScoreTableViewCell: UITableViewCell {
     scoreLabel.translatesAutoresizingMaskIntoConstraints = false
     scoreLabel.font = UIFont.preferredFont(forTextStyle: .title1)
     scoreLabel.textAlignment = isAccessibleSize ? .center : .right
+  }
+  
+  private func setupStackView() {
+    stackView = UIStackView(arrangedSubviews: [nameLabel, scoreLabel])
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.axis = isAccessibleSize ? .vertical : .horizontal
+    contentView.addSubview(stackView)
+    NSLayoutConstraint.activate([
+      stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+      stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+      stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+      stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+    ])
   }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
