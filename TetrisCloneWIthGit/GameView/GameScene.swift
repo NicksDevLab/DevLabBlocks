@@ -23,7 +23,7 @@ class GameScene: SKScene {
   var currentLevelLabel: SKLabelNode!
   var levelString: NSAttributedString!
   
-  var nextPieceNode: SKShapeNode!
+  var nextPiecePreviewNode: SKShapeNode!
   var nextPiece: TetrisPiece!
   
   var resetButton: SpriteButton!
@@ -46,24 +46,29 @@ class GameScene: SKScene {
     backgroundColor = .systemGray6
     setupGameBoard()
     setupScoreBoard()
-    updateNext()
+    setupNextPiecePreview()
     setupSwipeGestures()
     setupResetButton()
     gameBoard.startGame()
   }
   
+  func setupNextPiecePreview() {
+    nextPiecePreviewNode = SKShapeNode(rectOf: CGSize(width: view!.frame.width * 0.25, height: view!.frame.height * 0.12), cornerRadius: 10)
+    nextPiecePreviewNode.position = CGPoint(x: scoreBoardNode.frame.maxX + (nextPiecePreviewNode.frame.width / 2) + (view!.frame.width * 0.05), y: 0)
+    nextPiecePreviewNode.lineWidth = 2
+    nextPiecePreviewNode.strokeColor = UIColor(named: "tetrisOrange")!
+    nextPiecePreviewNode.fillColor = UIColor(named: "tetrisLabelBackground")!
+    scoreNode.addChild(nextPiecePreviewNode)
+  }
+  
 
   func updateNext() {
-    nextPieceNode = SKShapeNode(rectOf: CGSize(width: view!.frame.width * 0.25, height: view!.frame.height * 0.12), cornerRadius: 10)
-    nextPieceNode.position = CGPoint(x: scoreBoardNode.frame.maxX + (nextPieceNode.frame.width / 2) + (view!.frame.width * 0.05), y: 0)
-    nextPieceNode.lineWidth = 2
-    nextPieceNode.strokeColor = UIColor(named: "tetrisOrange")!
-    nextPieceNode.fillColor = UIColor(named: "tetrisLabelBackground")!
-    
+    if nextPiece != nil {
+      nextPiece.removeFromParent()
+    }
     nextPiece = GamePieceGenerator.createStaticPiece(type: gameBoard.nextGamePiece, size: 20)
     nextPiece.position = CGPoint(x: 0, y: 0)
-    nextPieceNode.addChild(nextPiece)
-    scoreNode.addChild(nextPieceNode)
+    nextPiecePreviewNode.addChild(nextPiece)
   }
   
   
@@ -168,6 +173,7 @@ extension GameScene {
   }
   
   func pauseGame() {
+    print("pause game called")
     guard gameBoard.boardState == .inPlay else { return }
     gameBoard.boardState = .paused
     let pauseView = PauseView(scene: self)
