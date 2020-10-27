@@ -9,7 +9,9 @@ import SpriteKit
 
 class BaseNode: SKShapeNode {
   
-  static let colors: Set<UIColor> = [.blue, .cyan, .green, .orange, .purple, .red, .white, .yellow]
+  var ok = false
+  
+  static var colors: Set<UIColor> = [.blue, .cyan, .green, .orange, .purple, .red, .yellow]
   
   let size: CGFloat!
   var color: UIColor!
@@ -18,7 +20,6 @@ class BaseNode: SKShapeNode {
     self.size = size
     self.color = color
     super.init()
-    
     let pathToDraw = CGMutablePath()
     pathToDraw.move(to: CGPoint(x: -(size / 2), y: -(size / 2)))
     pathToDraw.addLine(to: CGPoint(x: -(size / 2), y: (size / 2)))
@@ -27,7 +28,6 @@ class BaseNode: SKShapeNode {
     pathToDraw.closeSubpath()
     
     self.path = pathToDraw
-    self.strokeColor = self.color
     
     self.name = "baseNode"
   }

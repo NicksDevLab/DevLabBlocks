@@ -18,7 +18,7 @@ class GameBoard: SKShapeNode {
   
   private let numberOfBlocksWide: CGFloat = 12
   private let screenWidthAmount: CGFloat = 0.9
-  private var screenHieghtAmount: CGFloat = 0.7
+  private var screenHieghtAmount: CGFloat = 0.6
   
   var boardState: BoardState = .notInPlay
   var columnWidth: CGFloat = 0
@@ -32,6 +32,7 @@ class GameBoard: SKShapeNode {
   
   var setPiecesNode = SKNode()
   
+  var nextGamePiece = GamePiece.random()
   
   override init() {
     super.init()
@@ -127,10 +128,17 @@ class GameBoard: SKShapeNode {
   
   func addGamePiece() {
     gameSpeed = currentLevelSpeed
+    
     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
       guard self.boardState == .inPlay else { return }
-      self.activeGamePiece = GamePieceGenerator.createGamePiece(type: .random(), size: self.columnWidth,
-                                                                xPos: self.xPositions, yPos: self.yPositions)
+      self.activeGamePiece = GamePieceGenerator.createGamePiece(type: self.nextGamePiece,
+                                                                size: self.columnWidth,
+                                                                xPos: self.xPositions,
+                                                                yPos: self.yPositions)
+      self.nextGamePiece = GamePiece.random()
+      if let parent = self.parent as? GameScene {
+        parent.updateNext()
+      }
       self.adjustXPositionIfOutOfBounds()
       self.addChild(self.activeGamePiece!)
     }
@@ -232,7 +240,7 @@ class GameBoard: SKShapeNode {
         boardState = .gameOver
         if let parent = self.parent as? GameScene {
           parent.saveData()
-          parent.gameOver()
+          parent.pauseGame()
         }
         return
       }
@@ -242,6 +250,7 @@ class GameBoard: SKShapeNode {
       recordLocations()
       transferChildNodes()
       checkForCompleteRows()
+      
       addGamePiece()
       return
     }

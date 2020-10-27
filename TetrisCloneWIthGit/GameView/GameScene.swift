@@ -13,14 +13,21 @@ import CoreData
 class GameScene: SKScene {
   
   var gameBoard: GameBoard!
+  
   var scoreNode = SKNode()
   var scoreBoardNode: SKShapeNode!
-  var currentScoreLabel: SKLabelNode!
-  var currentLevelLabel: SKLabelNode!
-  var resetButton: SpriteButton!
-  var pauseButton: SpriteButton!
   
-  let navController = (UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).navigationController
+  var currentScoreLabel: SKLabelNode!
+  var scoreString: NSAttributedString!
+  
+  var currentLevelLabel: SKLabelNode!
+  var levelString: NSAttributedString!
+  
+  var nextPieceNode: SKShapeNode!
+  var nextPiece: TetrisPiece!
+  
+  var resetButton: SpriteButton!
+  
   var currentPlayer = (UIApplication.shared.delegate as! AppDelegate).defaults.string(forKey: "currentPlayer") ?? ""
   
   var score = 0 {
@@ -39,10 +46,24 @@ class GameScene: SKScene {
     backgroundColor = .systemGray6
     setupGameBoard()
     setupScoreBoard()
+    updateNext()
     setupSwipeGestures()
     setupResetButton()
-    setupPauseButton()
     gameBoard.startGame()
+  }
+  
+
+  func updateNext() {
+    nextPieceNode = SKShapeNode(rectOf: CGSize(width: view!.frame.width * 0.25, height: view!.frame.height * 0.12), cornerRadius: 10)
+    nextPieceNode.position = CGPoint(x: scoreBoardNode.frame.maxX + (nextPieceNode.frame.width / 2) + (view!.frame.width * 0.05), y: 0)
+    nextPieceNode.lineWidth = 2
+    nextPieceNode.strokeColor = UIColor(named: "tetrisOrange")!
+    nextPieceNode.fillColor = UIColor(named: "tetrisLabelBackground")!
+    
+    nextPiece = GamePieceGenerator.createStaticPiece(type: gameBoard.nextGamePiece, size: 20)
+    nextPiece.position = CGPoint(x: 0, y: 0)
+    nextPieceNode.addChild(nextPiece)
+    scoreNode.addChild(nextPieceNode)
   }
   
   
@@ -53,29 +74,30 @@ class GameScene: SKScene {
   
   private func setupScoreBoard() {
     
-    scoreNode.position = CGPoint(x: gameBoard.xPositions.first! + (view!.frame.width * 0.35), y: view!.frame.height - (view!.frame.height * 0.075))
+    scoreNode.position = CGPoint(x: gameBoard.frame.minX + (view!.frame.width * 0.3), y: gameBoard.frame.maxY + (view!.frame.height * 0.075))
     addChild(scoreNode)
     
-    scoreBoardNode = SKShapeNode(rectOf: CGSize(width: view!.frame.width * 0.7, height: view!.frame.height * 0.1), cornerRadius: 10)
+    scoreBoardNode = SKShapeNode(rectOf: CGSize(width: view!.frame.width * 0.6, height: view!.frame.height * 0.12), cornerRadius: 10)
     scoreBoardNode.lineWidth = 2
     scoreBoardNode.strokeColor = UIColor(named: "tetrisBlue")!
     scoreBoardNode.fillColor = UIColor(named: "tetrisLabelBackground")!
     scoreNode.addChild(scoreBoardNode)
                                  
-    currentScoreLabel = SKLabelNode(text: "\(currentPlayer) - Score: \(score)")
-    currentScoreLabel.fontName = UIFont.systemFont(ofSize: 36, weight: .bold).fontName
+    currentScoreLabel = SKLabelNode()
+    scoreString = NSAttributedString(string: "\(currentPlayer) - Score: \(score)")
+    currentScoreLabel.attributedText = scoreString
     currentScoreLabel.fontColor = .systemGray
-    currentScoreLabel.position = CGPoint(x:  0,
-                                         y: 20)
+    currentScoreLabel.position = CGPoint(x:  0, y: 20)
     scoreNode.addChild(currentScoreLabel)
     
-    currentLevelLabel = SKLabelNode(text: "Level: \(level)")
-    currentLevelLabel.fontName = UIFont.systemFont(ofSize: 36, weight: .bold).fontName
+    currentLevelLabel = SKLabelNode()
+    levelString = NSAttributedString(string: "Level: \(level)")
+    currentLevelLabel.attributedText = levelString
     currentLevelLabel.fontColor = .systemGray
-    currentLevelLabel.position = CGPoint(x: 0,
-                                         y: -20)
+    currentLevelLabel.position = CGPoint(x: 0, y: -20)
     scoreNode.addChild(currentLevelLabel)
   }
+  
   
   private func setupSwipeGestures() {
     
@@ -86,25 +108,15 @@ class GameScene: SKScene {
       self.view!.addGestureRecognizer(gesture)
     }
     
-    let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(moveToTapLocation))
-    singleTapGesture.numberOfTapsRequired = 1
-    self.view?.addGestureRecognizer(singleTapGesture)
-    
     let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(rotatePiece))
     doubleTapGesture.numberOfTapsRequired = 2
     self.view?.addGestureRecognizer(doubleTapGesture)
   }
   
   func setupResetButton() {
-    resetButton = SpriteButton(view: view!, text: "RESET")
-    resetButton.position = CGPoint(x: view!.frame.width * 0.3, y: view!.frame.height / 12)
+    resetButton = SpriteButton(scene: self, text: "PAUSE")
+    resetButton.position = CGPoint(x: view!.frame.width * 0.5, y: gameBoard.frame.minY / 2)
     addChild(resetButton)
-  }
-  
-  func setupPauseButton() {
-    pauseButton = SpriteButton(view: view!, text: "PAUSE")
-    pauseButton.position = CGPoint(x: view!.frame.width * 0.7, y: view!.frame.height / 12)
-    addChild(pauseButton)
   }
   
   var time = 0
@@ -150,22 +162,15 @@ extension GameScene {
   }
   
   @objc
-  func moveToTapLocation(_ sender: UITapGestureRecognizer) {
-    
-    guard gameBoard.activeGamePiece != nil else { return }
-
-    if gameBoard.activeGamePiece!.position.x > sender.location(in: self.view).x {
-      
-    } else {
- 
-    }
-  }
-  
-  @objc
   private func startGame() {
     gameBoard.boardState = .inPlay
     setupResetButton()
-    setupPauseButton()
+  }
+  
+  func pauseGame() {
+    guard gameBoard.boardState == .inPlay else { return }
+    gameBoard.boardState = .paused
+    view?.addSubview(PauseView(scene: self))
   }
   
   func saveData() {
@@ -185,38 +190,6 @@ extension GameScene {
     } catch {
       print(error)
     }
-  }
-  
-  func gameOver() {
-    let gameOverView = UIView()
-    gameOverView.translatesAutoresizingMaskIntoConstraints = false
-    gameOverView.backgroundColor = .green
-    gameOverView.layer.cornerRadius = 10
-    view?.addSubview(gameOverView)
-    
-    let button = UIButton()
-    button.translatesAutoresizingMaskIntoConstraints = false
-    button.backgroundColor = .purple
-    button.setTitle("Home", for: .normal)
-    button.addTarget(self, action: #selector(goToHomeScreen), for: .touchUpInside)
-    gameOverView.addSubview(button)
-    
-    NSLayoutConstraint.activate([
-      gameOverView.centerXAnchor.constraint(equalTo: view!.centerXAnchor),
-      gameOverView.centerYAnchor.constraint(equalTo: view!.centerYAnchor),
-      gameOverView.widthAnchor.constraint(equalToConstant: view!.frame.width * 0.8),
-      gameOverView.heightAnchor.constraint(equalToConstant: view!.frame.width * 0.8),
-      
-      button.centerXAnchor.constraint(equalTo: gameOverView.centerXAnchor),
-      button.bottomAnchor.constraint(equalTo: gameOverView.bottomAnchor, constant: -25)
-    ])
-    
-  }
-  
-  @objc
-  func goToHomeScreen() {
-    let navController = (UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).navigationController
-    navController?.popToRootViewController(animated: true)
   }
   
 }

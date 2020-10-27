@@ -33,6 +33,36 @@ class GamePieceGenerator {
     
     return piece
   }
+  
+  static func createStaticPiece(type: GamePiece, size: CGFloat) -> TetrisPiece {
+    
+    var piece: TetrisPiece!
+    
+    switch type {
+    case .square:
+      piece = SquareShape(size: size)
+    case .zShape:
+      piece = ZShape(size: size)
+    case .zRShape:
+      piece = ZRShape(size: size)
+    case .straight:
+      piece = StraightShape(size: size)
+    case .tShape:
+      piece = TShape(size: size)
+    case .lShape:
+      piece = LShape(size: size)
+    case .lRShape:
+      piece = LShape(size: size)
+    }
+    
+    for node in piece.children {
+      if let piece = node as? BaseNode {
+        piece.colorNode()
+      }
+    }
+    return piece
+  }
+  
 }
 
 

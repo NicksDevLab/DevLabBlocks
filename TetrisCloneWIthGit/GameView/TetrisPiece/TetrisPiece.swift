@@ -27,10 +27,10 @@ enum Orientation: Int {
 
 class TetrisPiece: SKNode {
   
-  let size: CGFloat!
+  var size: CGFloat!
   
-  let xPos: [CGFloat]
-  let yPos: [CGFloat]
+  var xPos: [CGFloat] = []
+  var yPos: [CGFloat] = []
   
   var currentXPos = 0 {
     willSet(newValue) {
@@ -51,9 +51,9 @@ class TetrisPiece: SKNode {
     self.xPos = xPos
     self.yPos = yPos
     super.init()
-    self.position.x = xPos.randomElement()!
-    self.position.y = yPos.last!
-    self.currentXPos = xPos.firstIndex(of: self.position.x)!
+    self.position.x = xPos.randomElement() ?? 0
+    self.position.y = yPos.last ?? 0
+    self.currentXPos = xPos.firstIndex(of: self.position.x) ?? 0
     self.currentYPos = yPos.count - 1
   }
   

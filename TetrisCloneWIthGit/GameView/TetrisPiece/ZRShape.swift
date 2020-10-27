@@ -26,6 +26,11 @@ class ZRShape: TetrisPiece, TetrisPieceProtocol {
     stackNodes()
   }
   
+  convenience init(size: CGFloat) {
+    self.init(size: size, xPos: [], yPos: [])
+    stackNodes()
+  }
+  
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

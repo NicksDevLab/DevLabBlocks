@@ -13,16 +13,15 @@ class SpriteButton: SKNode {
   private var button: SKShapeNode!
   private var size: CGSize!
   
+  var gameScene: GameScene!
   var text: String!
-  
-  var view: SKView!
-  
   var label: SKLabelNode!
   
-  init(view: SKView, text: String) {
-    self.view = view
+  init(scene: GameScene, text: String) {
+    self.gameScene = scene
     self.text = text
     super.init()
+    self.isUserInteractionEnabled = true
     setupButton()
     setupLabel()
   }
@@ -32,7 +31,7 @@ class SpriteButton: SKNode {
   }
   
   private func setupButton() {
-    button = SKShapeNode(rectOf: CGSize(width: 120, height: 50), cornerRadius: 10)
+    button = SKShapeNode(rectOf: CGSize(width: gameScene.view!.frame.width / 3, height: 50), cornerRadius: 10)
     button.lineWidth = 2
     button.strokeColor = .red
     button.fillColor = UIColor(named: "tetrisLabelBackground")!
@@ -40,10 +39,17 @@ class SpriteButton: SKNode {
   }
   
   private func setupLabel() {
-    label = SKLabelNode(text: text)
-    label.position.y = -15
+    label = SKLabelNode()
+    let labelString = NSAttributedString(string: text!)
+    label.attributedText = labelString
     label.fontColor = UIColor(named: "tetrisYellow")
     addChild(label)
+  }
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    if gameScene.gameBoard.boardState == .inPlay {
+      gameScene.pauseGame()
+    }
   }
   
 }
