@@ -170,7 +170,9 @@ extension GameScene {
   func pauseGame() {
     guard gameBoard.boardState == .inPlay else { return }
     gameBoard.boardState = .paused
-    view?.addSubview(PauseView(scene: self))
+    let pauseView = PauseView(scene: self)
+    pauseView.labelView.text = "Your Score \(scoreString.string)"
+    view?.addSubview(pauseView)
   }
   
   func saveData() {
