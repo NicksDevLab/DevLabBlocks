@@ -12,27 +12,27 @@ import CoreData
 class StartScreenViewController: UIViewController {
   
   // MARK: UI Elements
-  var gameTitleLabel: UILabel!
-  var scoreTableView: UITableView!
-  var startButton: StartScreenButton!
-  var settingsButton: StartScreenButton!
+  private var gameTitleLabel: UILabel!
+  private var scoreTableView: UITableView!
+  private var startButton: StartScreenButton!
+  private var settingsButton: StartScreenButton!
   
   // MARK: Constraints
-  var gameLabelWidthConstraint: NSLayoutConstraint!
+  private var gameLabelWidthConstraint: NSLayoutConstraint!
   
-  var scoreTableViewWidthConstraint: NSLayoutConstraint!
+  private var scoreTableViewWidthConstraint: NSLayoutConstraint!
   
-  var startButtonWidthConstraint: NSLayoutConstraint!
+  private var startButtonWidthConstraint: NSLayoutConstraint!
   
-  var settingsButtonWidthConstraint: NSLayoutConstraint!
+  private var settingsButtonWidthConstraint: NSLayoutConstraint!
   
-  var players: [Player] = []
+  private var players: [Player] = []
   
-  var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+  private var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
   
-  var customPresentationController: PlayerSelectVCTransitioningDelegate!
+  private var customPresentationController: PlayerSelectVCTransitioningDelegate!
   
-  var safeFrame: CGSize!
+  private var safeFrame: CGSize!
   
   // MARK: viewDidLoad
   override func viewDidLoad() {
@@ -129,10 +129,6 @@ class StartScreenViewController: UIViewController {
 // MARK: Extension for tableView
 extension StartScreenViewController: UITableViewDelegate, UITableViewDataSource {
   
-//  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//    return
-//  }
-//
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let label = tableView.dequeueReusableHeaderFooterView(withIdentifier: TetrisTableViewHeaderView.reuseID) as! TetrisTableViewHeaderView
     return label
@@ -174,7 +170,7 @@ extension StartScreenViewController {
   }
   
   @objc
-  func goToGameViewController() {
+  private func goToGameViewController() {
     fireHapticFeedback()
     customPresentationController = PlayerSelectVCTransitioningDelegate()
     let vc = PlayerSelectViewController()
@@ -185,13 +181,13 @@ extension StartScreenViewController {
   }
   
   @objc
-  func goToSettingsViewController() {
+  private func goToSettingsViewController() {
     fireHapticFeedback()
     let settingsVC = SettingsViewController()
     navigationController?.pushViewController(settingsVC, animated: true)
   }
   
-  func fireHapticFeedback() {
+  private func fireHapticFeedback() {
     let feedback = UIImpactFeedbackGenerator(style: .medium)
     feedback.impactOccurred()
   }

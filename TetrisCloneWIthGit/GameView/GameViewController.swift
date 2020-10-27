@@ -9,9 +9,9 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
+final class GameViewController: UIViewController {
   
-  var gameScene: GameScene!
+  private var gameScene: GameScene!
   
   override func loadView() {
     super.loadView()

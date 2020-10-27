@@ -10,23 +10,10 @@ import UIKit
 import CoreData
 
 
-class GameScene: SKScene {
+final class GameScene: SKScene {
   
+  // MARK: Public Variables
   var gameBoard: GameBoard!
-  
-  var scoreNode = SKNode()
-  var scoreBoardNode: SKShapeNode!
-  
-  var currentScoreLabel: SKLabelNode!
-  var scoreString: NSAttributedString!
-  
-  var currentLevelLabel: SKLabelNode!
-  var levelString: NSAttributedString!
-  
-  var nextPiecePreviewNode: SKShapeNode!
-  var nextPiece: TetrisPiece!
-  
-  var resetButton: SpriteButton!
   
   var currentPlayer = (UIApplication.shared.delegate as! AppDelegate).defaults.string(forKey: "currentPlayer") ?? ""
   
@@ -42,6 +29,18 @@ class GameScene: SKScene {
     }
   }
   
+  // MARK: Private Variables
+  private var scoreNode = SKNode()
+  private var scoreBoardNode: SKShapeNode!
+  private var currentScoreLabel: SKLabelNode!
+  private var scoreString: NSAttributedString!
+  private var currentLevelLabel: SKLabelNode!
+  private var levelString: NSAttributedString!
+  private var nextPiecePreviewNode: SKShapeNode!
+  private var nextPiece: TetrisPiece!
+  private var resetButton: SpriteButton!
+  
+  
   override func didMove(to view: SKView) {
     backgroundColor = .systemGray6
     setupGameBoard()
@@ -51,26 +50,6 @@ class GameScene: SKScene {
     setupResetButton()
     gameBoard.startGame()
   }
-  
-  func setupNextPiecePreview() {
-    nextPiecePreviewNode = SKShapeNode(rectOf: CGSize(width: view!.frame.width * 0.25, height: view!.frame.height * 0.12), cornerRadius: 10)
-    nextPiecePreviewNode.position = CGPoint(x: scoreBoardNode.frame.maxX + (nextPiecePreviewNode.frame.width / 2) + (view!.frame.width * 0.05), y: 0)
-    nextPiecePreviewNode.lineWidth = 2
-    nextPiecePreviewNode.strokeColor = UIColor(named: "tetrisOrange")!
-    nextPiecePreviewNode.fillColor = UIColor(named: "tetrisLabelBackground")!
-    scoreNode.addChild(nextPiecePreviewNode)
-  }
-  
-
-  func updateNext() {
-    if nextPiece != nil {
-      nextPiece.removeFromParent()
-    }
-    nextPiece = GamePieceGenerator.createStaticPiece(type: gameBoard.nextGamePiece, size: 20)
-    nextPiece.position = CGPoint(x: 0, y: 0)
-    nextPiecePreviewNode.addChild(nextPiece)
-  }
-  
   
   private func setupGameBoard() {
     gameBoard = GameBoard(viewFrame: self.view!.frame)
@@ -103,6 +82,14 @@ class GameScene: SKScene {
     scoreNode.addChild(currentLevelLabel)
   }
   
+  private func setupNextPiecePreview() {
+    nextPiecePreviewNode = SKShapeNode(rectOf: CGSize(width: view!.frame.width * 0.25, height: view!.frame.height * 0.12), cornerRadius: 10)
+    nextPiecePreviewNode.position = CGPoint(x: scoreBoardNode.frame.maxX + (nextPiecePreviewNode.frame.width / 2) + (view!.frame.width * 0.05), y: 0)
+    nextPiecePreviewNode.lineWidth = 2
+    nextPiecePreviewNode.strokeColor = UIColor(named: "tetrisOrange")!
+    nextPiecePreviewNode.fillColor = UIColor(named: "tetrisLabelBackground")!
+    scoreNode.addChild(nextPiecePreviewNode)
+  }
   
   private func setupSwipeGestures() {
     
@@ -118,13 +105,13 @@ class GameScene: SKScene {
     self.view?.addGestureRecognizer(doubleTapGesture)
   }
   
-  func setupResetButton() {
+  private func setupResetButton() {
     resetButton = SpriteButton(scene: self, text: "PAUSE")
     resetButton.position = CGPoint(x: view!.frame.width * 0.5, y: gameBoard.frame.minY / 2)
     addChild(resetButton)
   }
   
-  var time = 0
+  private var time = 0
   override func update(_ currentTime: TimeInterval) {
     time += 1
     if gameBoard?.boardState == .inPlay {
@@ -140,8 +127,9 @@ class GameScene: SKScene {
 // MARK: Methods Extension
 extension GameScene {
   
+  // MARK: Private Methods
   @objc
-  func movePiece(_ sender: UISwipeGestureRecognizer) {
+  private func movePiece(_ sender: UISwipeGestureRecognizer) {
     
     guard gameBoard.boardState == .inPlay else { return }
     
@@ -158,7 +146,7 @@ extension GameScene {
   }
   
   @objc
-  func rotatePiece() {
+  private func rotatePiece() {
     
     guard gameBoard.boardState == .inPlay else { return }
     
@@ -172,6 +160,8 @@ extension GameScene {
     setupResetButton()
   }
   
+  
+  //MARK: Public Methods
   func pauseGame() {
     print("pause game called")
     guard gameBoard.boardState == .inPlay else { return }
@@ -179,6 +169,15 @@ extension GameScene {
     let pauseView = PauseView(scene: self)
     pauseView.labelView.text = "Your Score \(scoreString.string)"
     view?.addSubview(pauseView)
+  }
+  
+  func updateNext() {
+    if nextPiece != nil {
+      nextPiece.removeFromParent()
+    }
+    nextPiece = GamePieceGenerator.createStaticPiece(type: gameBoard.nextGamePiece, size: 20)
+    nextPiece.position = CGPoint(x: 0, y: 0)
+    nextPiecePreviewNode.addChild(nextPiece)
   }
   
   func saveData() {
