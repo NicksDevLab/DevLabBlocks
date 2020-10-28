@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StartScreenButton: UIButton {
+final class StartScreenButton: UIButton {
   
   init(title: String) {
     super.init(frame: .zero)

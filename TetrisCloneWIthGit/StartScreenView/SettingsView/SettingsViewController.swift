@@ -9,28 +9,28 @@ import UIKit
 import CoreData
 
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
   
-  var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+  private var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
   
-  var backButton: UIButton!
-  var backButtonWidthConstraint: NSLayoutConstraint!
-  var backButtonHeightConstraint: NSLayoutConstraint!
+  private var backButton: UIButton!
+  private var backButtonWidthConstraint: NSLayoutConstraint!
+  private var backButtonHeightConstraint: NSLayoutConstraint!
   
-  var tableView: UITableView!
+  private var tableView: UITableView!
   
-  var soundButton: UIButton!
-  var soundButtonWidthConstraint: NSLayoutConstraint!
-  var soundButtonHeightConstraint: NSLayoutConstraint!
+  private var soundButton: UIButton!
+  private var soundButtonWidthConstraint: NSLayoutConstraint!
+  private var soundButtonHeightConstraint: NSLayoutConstraint!
   
-  var modeButton: UIButton!
-  var modeButtonWidthConstraint: NSLayoutConstraint!
-  var modeButtonHeightConstraint: NSLayoutConstraint!
-  var modeButtonTopConstraint: NSLayoutConstraint!
+  private var modeButton: UIButton!
+  private var modeButtonWidthConstraint: NSLayoutConstraint!
+  private var modeButtonHeightConstraint: NSLayoutConstraint!
+  private var modeButtonTopConstraint: NSLayoutConstraint!
   
-  let spaceing: CGFloat = 12
+  private let spaceing: CGFloat = 12
   
-  var players: [Player] = []
+  private var players: [Player] = []
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -39,8 +39,10 @@ class SettingsViewController: UIViewController {
     setupTableView()
     setupSoundButton()
     setupModeButton()
+    setupConstraints()
     retreiveCoreData()
   }
+  
   
   private func setupBackButton() {
     backButton = UIButton()
@@ -58,15 +60,11 @@ class SettingsViewController: UIViewController {
     backButtonHeightConstraint = backButton.heightAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.21 : view.frame.width * 0.15)
     
     view.addSubview(backButton)
-    NSLayoutConstraint.activate([
-      backButtonWidthConstraint,
-      backButtonHeightConstraint,
-      backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spaceing),
-      backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: spaceing)
-    ])
   }
   
+  
   private func setupTableView() {
+    
     tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.delegate = self
@@ -84,14 +82,8 @@ class SettingsViewController: UIViewController {
     tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
     
     view.addSubview(tableView)
-    NSLayoutConstraint.activate([
-      tableView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.52),
-      tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spaceing),
-      tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spaceing),
-      tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      tableView.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: spaceing)
-    ])
   }
+  
   
   private func setupSoundButton() {
     
@@ -114,13 +106,8 @@ class SettingsViewController: UIViewController {
     soundButtonHeightConstraint = soundButton.heightAnchor.constraint(equalToConstant: isFontAccessible ? view.frame.width * 0.2 : view.frame.width * 0.4)
     
     view.addSubview(soundButton)
-    NSLayoutConstraint.activate([
-      soundButtonWidthConstraint,
-      soundButtonHeightConstraint,
-      soundButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spaceing),
-      soundButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: spaceing)
-    ])
   }
+  
   
   private func setupModeButton() {
     
@@ -143,7 +130,27 @@ class SettingsViewController: UIViewController {
     modeButtonTopConstraint = modeButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: isFontAccessible ? (view.frame.width * 0.2) - (spaceing * 2) : spaceing)
     
     view.addSubview(modeButton)
+  }
+  
+  // MARK: Constraints
+  private func setupConstraints() {
     NSLayoutConstraint.activate([
+      backButtonWidthConstraint,
+      backButtonHeightConstraint,
+      backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spaceing),
+      backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: spaceing),
+      
+      tableView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.52),
+      tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spaceing),
+      tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spaceing),
+      tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      tableView.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: spaceing),
+      
+      soundButtonWidthConstraint,
+      soundButtonHeightConstraint,
+      soundButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spaceing),
+      soundButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: spaceing),
+      
       modeButtonWidthConstraint,
       modeButtonHeightConstraint,
       modeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spaceing),
@@ -151,6 +158,7 @@ class SettingsViewController: UIViewController {
     ])
   }
   
+  // MARK: TraitCollection
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
     
@@ -171,7 +179,7 @@ class SettingsViewController: UIViewController {
 }
 
 
-
+// MARK: TableView Extension
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
   
   func numberOfSections(in tableView: UITableView) -> Int {
@@ -209,10 +217,10 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-
+// MARK: Methods Extension
 extension SettingsViewController {
   
-  func retreiveCoreData() {
+  private func retreiveCoreData() {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let playerFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
     playerFetchRequest.sortDescriptors = [
@@ -227,7 +235,7 @@ extension SettingsViewController {
     }
   }
   
-  func deletePlayer(at index: Int) {
+  private func deletePlayer(at index: Int) {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let player = players[index]
     context.delete(player)
@@ -251,7 +259,6 @@ extension SettingsViewController {
     } else {
       UserDefaults.standard.set(false, forKey: "isSoundOn")
     }
-    
   }
   
   @objc

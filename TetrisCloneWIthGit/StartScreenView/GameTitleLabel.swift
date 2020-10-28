@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GameTitleLabel: UILabel {
+final class GameTitleLabel: UILabel {
 
   init(view: UIView) {
     super.init(frame: view.frame)

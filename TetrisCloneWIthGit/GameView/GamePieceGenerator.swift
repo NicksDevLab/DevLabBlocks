@@ -8,7 +8,7 @@
 import SpriteKit
 
 
-class GamePieceGenerator {
+final class GamePieceGenerator {
   
   static func createGamePiece(type: GamePiece, size: CGFloat, xPos: [CGFloat], yPos: [CGFloat]) -> TetrisPiece {
     

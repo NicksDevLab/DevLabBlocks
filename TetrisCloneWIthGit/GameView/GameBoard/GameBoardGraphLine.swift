@@ -8,11 +8,11 @@
 import SpriteKit
 
 
-class GameBoardGraphLine: SKShapeNode {
+final class GameBoardGraphLine: SKShapeNode {
   
-  let pos: CGFloat
-  let from: CGFloat
-  let to: CGFloat
+  private let pos: CGFloat
+  private let from: CGFloat
+  private let to: CGFloat
   
   init(xPos: CGFloat, fromY: CGFloat, toY: CGFloat) {
     self.pos = xPos
@@ -34,6 +34,7 @@ class GameBoardGraphLine: SKShapeNode {
     fatalError("init(coder:) has not been implemented")
   }
   
+  
   private func drawXLines() {
     let line = CGMutablePath()
     line.move(to: CGPoint(x: pos, y: from))
@@ -41,6 +42,7 @@ class GameBoardGraphLine: SKShapeNode {
     self.path = line
     self.strokeColor = .lightGray
   }
+  
   
   private func drawYLines() {
     let line = CGMutablePath()

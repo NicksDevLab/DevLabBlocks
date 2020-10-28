@@ -23,10 +23,11 @@ enum ViewControllerScale {
 }
 
 
-class PlayerSelectVCAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
+final class PlayerSelectVCAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
   
-  let estimatedFinalHeight: CGFloat
-  let animationDuration: TimeInterval
+  private let estimatedFinalHeight: CGFloat
+  private let animationDuration: TimeInterval
+  
   var isPresenting: Bool
 
   init(estimatedFinalHeight: CGFloat, animationDuration: TimeInterval, isPresenting: Bool) {

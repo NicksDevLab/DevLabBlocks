@@ -15,19 +15,18 @@ class ZRShape: TetrisPiece, TetrisPieceProtocol {
   var blockThree: BaseNode!
   var blockFour: BaseNode!
   
-  var color: UIColor!
+  var color = BaseNode.colors.randomElement()!
   
   var currentOrientation: Orientation = .left
   var nextOrientation = 1
   
   override init(size: CGFloat, xPos: [CGFloat], yPos: [CGFloat]) {
     super.init(size: size, xPos: xPos, yPos: yPos)
-    self.color = BaseNode.colors.randomElement()
     stackNodes()
   }
   
-  convenience init(size: CGFloat) {
-    self.init(size: size, xPos: [], yPos: [])
+  init(size: CGFloat) {
+    super.init(size: size, xPos: [], yPos: [])
     stackNodes()
   }
   

@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class SpriteButton: SKNode {
+final class SpriteButton: SKNode {
   
   private var path: CGPath!
   private var button: SKShapeNode!

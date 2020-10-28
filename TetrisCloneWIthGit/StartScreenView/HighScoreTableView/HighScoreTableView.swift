@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HighScoreTableView: UITableView {
+final class HighScoreTableView: UITableView {
 
   override init(frame: CGRect, style: UITableView.Style) {
     super.init(frame: frame, style: style)

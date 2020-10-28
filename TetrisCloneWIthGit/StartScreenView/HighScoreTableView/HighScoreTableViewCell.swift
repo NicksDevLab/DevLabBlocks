@@ -7,13 +7,13 @@
 
 import UIKit
 
-class HighScoreTableViewCell: UITableViewCell {
+final class HighScoreTableViewCell: UITableViewCell {
   
   static let reuseID = "HighScoreTableViewCell"
   
-  var isAccessibleSize = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+  private var isAccessibleSize = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
   
-  var stackView: UIStackView!
+  private var stackView: UIStackView!
   var nameLabel: UILabel!
   var scoreLabel: UILabel!
   

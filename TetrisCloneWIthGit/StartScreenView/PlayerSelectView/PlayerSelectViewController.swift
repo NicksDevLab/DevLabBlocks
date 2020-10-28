@@ -8,36 +8,38 @@
 import UIKit
 import CoreData
 
-class PlayerSelectViewController: UIViewController {
+final class PlayerSelectViewController: UIViewController {
   
-  let tableView = HighScoreTableView()
-  var addNewPlayerButton: StartScreenButton!
-  var dismissGesture: UISwipeGestureRecognizer!
+  private let tableView = HighScoreTableView()
+  private var addNewPlayerButton: StartScreenButton!
+  private var dismissGesture: UISwipeGestureRecognizer!
   
-  var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
+  private var isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
   
-  var tableViewHeightConstraint: NSLayoutConstraint!
-  var newPlayerButtonHeightConstraint: NSLayoutConstraint!
+  private var tableViewHeightConstraint: NSLayoutConstraint!
+  private var newPlayerButtonHeightConstraint: NSLayoutConstraint!
+  
+  private var players: [Player] = []
   
   var thisParent: StartScreenViewController!
   
-  var players: [Player] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .systemBackground
-
     setupTableView()
     setupAddNewPlayerButton()
     setupConstraints()
     setupDismissSwipeGesture()
   }
   
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     retreiveCoreData()
   }
 
+  
   private func setupTableView() {
     tableView.delegate = self
     tableView.dataSource = self
@@ -54,6 +56,7 @@ class PlayerSelectViewController: UIViewController {
     view.addSubview(tableView)
   }
   
+  
   private func setupAddNewPlayerButton() {
     addNewPlayerButton = StartScreenButton(title: NSLocalizedString("New Player", comment: "Add a new user"))
     addNewPlayerButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
@@ -62,6 +65,15 @@ class PlayerSelectViewController: UIViewController {
     view.addSubview(addNewPlayerButton)
   }
   
+  
+  private func setupDismissSwipeGesture() {
+    dismissGesture = UISwipeGestureRecognizer(target: self, action: #selector(dismissView(_:)))
+    dismissGesture.direction = .down
+    view.isUserInteractionEnabled = true
+    view.addGestureRecognizer(dismissGesture)
+  }
+  
+  // MARK: Constraints
   private func setupConstraints() {
     NSLayoutConstraint.activate([
       tableView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.6),
@@ -76,14 +88,8 @@ class PlayerSelectViewController: UIViewController {
     ])
   }
   
-  private func setupDismissSwipeGesture() {
-    dismissGesture = UISwipeGestureRecognizer(target: self, action: #selector(dismissView(_:)))
-    dismissGesture.direction = .down
-    view.isUserInteractionEnabled = true
-    view.addGestureRecognizer(dismissGesture)
-  }
   
-  // MARK: traitCollectionDidChange
+  // MARK: TraitCollection
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     isFontAccessible = UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory
@@ -91,6 +97,8 @@ class PlayerSelectViewController: UIViewController {
     newPlayerButtonHeightConstraint.constant = isFontAccessible ? 110 : 50
   }
 }
+
+
 
 // MARK: TableViewDelegate Extension
 extension PlayerSelectViewController: UITableViewDelegate, UITableViewDataSource {
@@ -129,6 +137,7 @@ extension PlayerSelectViewController {
   private func dismissView(_ sender: UISwipeGestureRecognizer) {
     dismiss(animated: true, completion: nil)
   }
+  
   
   @objc
   private func addPlayer() {

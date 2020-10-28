@@ -25,6 +25,7 @@ enum Orientation: Int {
   case left = 0, down, right, up
 }
 
+
 class TetrisPiece: SKNode {
   
   var size: CGFloat!
@@ -57,12 +58,12 @@ class TetrisPiece: SKNode {
     self.currentYPos = yPos.count - 1
   }
   
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+  func rotate() {
+    
   }
   
-  func rotate() {
-
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
 }

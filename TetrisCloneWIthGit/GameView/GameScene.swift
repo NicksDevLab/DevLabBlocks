@@ -51,10 +51,12 @@ final class GameScene: SKScene {
     gameBoard.startGame()
   }
   
+  
   private func setupGameBoard() {
     gameBoard = GameBoard(viewFrame: self.view!.frame)
     addChild(gameBoard!)
   }
+  
   
   private func setupScoreBoard() {
     
@@ -82,6 +84,7 @@ final class GameScene: SKScene {
     scoreNode.addChild(currentLevelLabel)
   }
   
+  
   private func setupNextPiecePreview() {
     nextPiecePreviewNode = SKShapeNode(rectOf: CGSize(width: view!.frame.width * 0.25, height: view!.frame.height * 0.12), cornerRadius: 10)
     nextPiecePreviewNode.position = CGPoint(x: scoreBoardNode.frame.maxX + (nextPiecePreviewNode.frame.width / 2) + (view!.frame.width * 0.05), y: 0)
@@ -90,6 +93,7 @@ final class GameScene: SKScene {
     nextPiecePreviewNode.fillColor = UIColor(named: "tetrisLabelBackground")!
     scoreNode.addChild(nextPiecePreviewNode)
   }
+  
   
   private func setupSwipeGestures() {
     
@@ -110,6 +114,7 @@ final class GameScene: SKScene {
     resetButton.position = CGPoint(x: view!.frame.width * 0.5, y: gameBoard.frame.minY / 2)
     addChild(resetButton)
   }
+  
   
   private var time = 0
   override func update(_ currentTime: TimeInterval) {
@@ -145,6 +150,7 @@ extension GameScene {
     }
   }
   
+  
   @objc
   private func rotatePiece() {
     
@@ -153,6 +159,7 @@ extension GameScene {
     gameBoard.activeGamePiece?.rotate()
     gameBoard.adjustXPositionIfOutOfBounds()
   }
+  
   
   @objc
   private func startGame() {
@@ -171,6 +178,7 @@ extension GameScene {
     view?.addSubview(pauseView)
   }
   
+  
   func updateNext() {
     if nextPiece != nil {
       nextPiece.removeFromParent()
@@ -179,6 +187,7 @@ extension GameScene {
     nextPiece.position = CGPoint(x: 0, y: 0)
     nextPiecePreviewNode.addChild(nextPiece)
   }
+  
   
   func saveData() {
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext

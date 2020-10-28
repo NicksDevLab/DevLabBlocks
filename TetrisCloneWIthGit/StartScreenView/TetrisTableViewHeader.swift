@@ -8,7 +8,7 @@
 import UIKit
 
 
-class TetrisTableViewHeaderView: UITableViewHeaderFooterView {
+final class TetrisTableViewHeaderView: UITableViewHeaderFooterView {
   
   static let reuseID = String(describing: self)
   
@@ -34,7 +34,7 @@ class TetrisTableViewHeaderView: UITableViewHeaderFooterView {
 }
 
 
-class TetrisTableViewHeader: UILabel {
+final class TetrisTableViewHeader: UILabel {
   
   override init(frame: CGRect) {
     super.init(frame: frame)

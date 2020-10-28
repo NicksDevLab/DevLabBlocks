@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 
-class StartScreenViewController: UIViewController {
+final class StartScreenViewController: UIViewController {
   
   // MARK: UI Elements
   private var gameTitleLabel: UILabel!

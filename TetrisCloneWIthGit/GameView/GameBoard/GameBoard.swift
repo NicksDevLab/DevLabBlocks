@@ -9,35 +9,38 @@ import SpriteKit
 import UIKit
 import CoreData
 
+
 enum BoardState {
   case inPlay, notInPlay, paused, gameOver
 }
 
 
-class GameBoard: SKShapeNode {
+final class GameBoard: SKShapeNode {
   
   private let numberOfBlocksWide: CGFloat = 12
   private let screenWidthAmount: CGFloat = 0.9
   private var screenHieghtAmount: CGFloat = 0.6
   
-  var boardState: BoardState = .notInPlay
-  var columnWidth: CGFloat = 0
-  var xPositions: [CGFloat] = []
-  var yPositions: [CGFloat] = []
-  var occupiedPositions: [CGFloat : Set<CGFloat>] = [:]
-  var activeGamePiece: TetrisPiece?
+  private var columnWidth: CGFloat = 0
+  private var xPositions: [CGFloat] = []
+  private var yPositions: [CGFloat] = []
+  private var occupiedPositions: [CGFloat : Set<CGFloat>] = [:]
   
-  var currentLevelSpeed = 40
+  private var currentLevelSpeed = 40
+  
+  private var setPiecesNode = SKNode()
+  private var numberOfRowsDeleted = 0
+  private var lastRowDeleted = 0
+  
+  var boardState: BoardState = .notInPlay
+  var activeGamePiece: TetrisPiece?
+  var nextGamePiece = GamePiece.random()
   var gameSpeed = 40
   
-  var setPiecesNode = SKNode()
-  
-  var nextGamePiece = GamePiece.random()
   
   override init() {
     super.init()
   }
-  
   
   convenience init(viewFrame: CGRect) {
     self.init()
@@ -103,67 +106,22 @@ class GameBoard: SKShapeNode {
     
   }
   
-  @objc
-  func changeAppearance() {
-    
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   
+  // MARK: Public Methods
   func startGame() {
-    addGamePiece()
     boardState = .inPlay
+    addGamePiece()
   }
   
-  func resetGame() {
-    boardState = .notInPlay
-    if let parent = self.parent as? GameScene {
-      parent.saveData()
-    }
-    activeGamePiece?.removeFromParent()
-    activeGamePiece = nil
-    occupiedPositions = [:]
-    setPiecesNode.removeAllChildren()
-    currentLevelSpeed = 40
-  }
-  
-  func addGamePiece() {
-    gameSpeed = currentLevelSpeed
-    
-    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-      guard self.boardState == .inPlay else { return }
-      self.activeGamePiece = GamePieceGenerator.createGamePiece(type: self.nextGamePiece,
-                                                                size: self.columnWidth,
-                                                                xPos: self.xPositions,
-                                                                yPos: self.yPositions)
-      self.nextGamePiece = GamePiece.random()
-      if let parent = self.parent as? GameScene {
-        parent.updateNext()
-      }
-      self.adjustXPositionIfOutOfBounds()
-      self.addChild(self.activeGamePiece!)
-    }
-  }
-  
-  func adjustXPositionIfOutOfBounds() {
-    for child in activeGamePiece!.children {
-      var position = child.convert(.zero, to: self)
-      if position.x.rounded(.up) < xPositions.first! || position.x.rounded(.up) > xPositions.last! {
-        while position.x.rounded(.up) < xPositions.first! {
-          activeGamePiece?.currentXPos += 1
-          position = child.convert(.zero, to: self)
-        }
-        while position.x.rounded(.up) > xPositions.last! {
-          activeGamePiece?.currentXPos -= 1
-          position = child.convert(.zero, to: self)
-        }
-      }
-    }
-  }
   
   enum MoveDirection {
     case left, right, down, bottom
   }
-  
   
   func movePiece(_ direciton: MoveDirection) {
     
@@ -200,6 +158,56 @@ class GameBoard: SKShapeNode {
       checkNextYPositions()
     case .bottom:
       gameSpeed = 4
+    }
+  }
+  
+  
+  func adjustXPositionIfOutOfBounds() {
+    for child in activeGamePiece!.children {
+      var position = child.convert(.zero, to: self)
+      if position.x.rounded(.up) < xPositions.first! || position.x.rounded(.up) > xPositions.last! {
+        while position.x.rounded(.up) < xPositions.first! {
+          activeGamePiece?.currentXPos += 1
+          position = child.convert(.zero, to: self)
+        }
+        while position.x.rounded(.up) > xPositions.last! {
+          activeGamePiece?.currentXPos -= 1
+          position = child.convert(.zero, to: self)
+        }
+      }
+    }
+  }
+  
+  
+  // MARK: Private Methods
+  private func resetGame() {
+    boardState = .notInPlay
+    if let parent = self.parent as? GameScene {
+      parent.saveData()
+    }
+    activeGamePiece?.removeFromParent()
+    activeGamePiece = nil
+    occupiedPositions = [:]
+    setPiecesNode.removeAllChildren()
+    currentLevelSpeed = 40
+  }
+  
+  
+  private func addGamePiece() {
+    gameSpeed = currentLevelSpeed
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+      guard self.boardState == .inPlay else { return }
+      self.activeGamePiece = GamePieceGenerator.createGamePiece(type: self.nextGamePiece,
+                                                                size: self.columnWidth,
+                                                                xPos: self.xPositions,
+                                                                yPos: self.yPositions)
+      self.nextGamePiece = GamePiece.random()
+      if let parent = self.parent as? GameScene {
+        parent.updateNext()
+      }
+      self.adjustXPositionIfOutOfBounds()
+      self.addChild(self.activeGamePiece!)
     }
   }
   
@@ -260,7 +268,7 @@ class GameBoard: SKShapeNode {
   }
   
   
-  func  transferChildNodes() {
+  private func transferChildNodes() {
     for child in activeGamePiece!.children {
       child.move(toParent: setPiecesNode)
       child.position.x = child.position.x.rounded(.up)
@@ -268,9 +276,6 @@ class GameBoard: SKShapeNode {
     }
   }
   
-  
-  var numberOfRowsDeleted = 0
-  var lastRowDeleted = 0
   
   private func checkForCompleteRows() {
  
@@ -334,7 +339,7 @@ class GameBoard: SKShapeNode {
   }
   
   
-  func recordLocations() {
+  private func recordLocations() {
     
     guard activeGamePiece != nil else { return }
     
@@ -349,23 +354,6 @@ class GameBoard: SKShapeNode {
         occupiedPositions[pos.y]?.insert(pos.x)
       }
     }
-  }
-  
-  
-  func removeLastPositions() {
-    
-    for child in activeGamePiece!.children {
-      let pos = child.convert(CGPoint(x: 0, y: 0), to: self)
-      occupiedPositions[pos.y]?.remove(pos.x)
-      if occupiedPositions[pos.y] == [] {
-        occupiedPositions.removeValue(forKey: pos.y)
-      }
-    }
-  }
-  
-  
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
 }
 
