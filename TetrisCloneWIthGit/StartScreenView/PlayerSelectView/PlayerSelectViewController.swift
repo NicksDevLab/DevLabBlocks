@@ -59,7 +59,7 @@ final class PlayerSelectViewController: UIViewController {
   
   private func setupAddNewPlayerButton() {
     addNewPlayerButton = StartScreenButton(title: NSLocalizedString("New Player", comment: "Add a new user"))
-    addNewPlayerButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+    addNewPlayerButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
     addNewPlayerButton.addTarget(self, action: #selector(addPlayer), for: .touchUpInside)
     newPlayerButtonHeightConstraint = addNewPlayerButton.heightAnchor.constraint(equalToConstant: isFontAccessible ? 50 : 100)
     view.addSubview(addNewPlayerButton)

@@ -40,9 +40,14 @@ final class SpriteButton: SKNode {
   
   private func setupLabel() {
     label = SKLabelNode()
-    let labelString = NSAttributedString(string: text!)
+    let attributes = [
+      NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .title2),
+      NSAttributedString.Key.foregroundColor : UIColor(named: "tetrisGreen")!
+    ]
+    let labelString = NSAttributedString(string: text!, attributes: attributes)
     label.attributedText = labelString
     label.fontColor = UIColor(named: "tetrisYellow")
+    label.position = CGPoint(x: 0, y: -(label.frame.width / 8))
     addChild(label)
   }
   

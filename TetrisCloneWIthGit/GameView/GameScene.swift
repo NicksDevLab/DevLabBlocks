@@ -15,11 +15,11 @@ final class GameScene: SKScene {
   // MARK: Public Variables
   var gameBoard: GameBoard!
   
-  var currentPlayer = (UIApplication.shared.delegate as! AppDelegate).defaults.string(forKey: "currentPlayer") ?? ""
+  var currentPlayerName = (UIApplication.shared.delegate as! AppDelegate).defaults.string(forKey: "currentPlayer") ?? ""
   
   var score = 0 {
     willSet(newValue) {
-      currentScoreLabel.text = "\(currentPlayer) - Score: \(newValue)"
+      currentScoreLabel.text = "\(currentPlayerName) - Score: \(newValue)"
     }
   }
   
@@ -39,6 +39,7 @@ final class GameScene: SKScene {
   private var nextPiecePreviewNode: SKShapeNode!
   private var nextPiece: TetrisPiece!
   private var resetButton: SpriteButton!
+  private var currentPlayer: Player!
   
   
   override func didMove(to view: SKView) {
@@ -48,6 +49,7 @@ final class GameScene: SKScene {
     setupNextPiecePreview()
     setupSwipeGestures()
     setupResetButton()
+    getPlayer()
     gameBoard.startGame()
   }
   
@@ -70,17 +72,21 @@ final class GameScene: SKScene {
     scoreNode.addChild(scoreBoardNode)
                                  
     currentScoreLabel = SKLabelNode()
-    scoreString = NSAttributedString(string: "\(currentPlayer) - Score: \(score)")
+    let scoreBoardStringAttributes = [
+      NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .title1),
+      NSAttributedString.Key.foregroundColor : UIColor(named: "tetrisOrange")!,
+    ]
+    scoreString = NSMutableAttributedString(string: "SCORE - \(score)", attributes: scoreBoardStringAttributes)
     currentScoreLabel.attributedText = scoreString
     currentScoreLabel.fontColor = .systemGray
-    currentScoreLabel.position = CGPoint(x:  0, y: 20)
+    currentScoreLabel.position = CGPoint(x:  0, y: currentScoreLabel.frame.height * 0.1)
     scoreNode.addChild(currentScoreLabel)
     
     currentLevelLabel = SKLabelNode()
-    levelString = NSAttributedString(string: "Level: \(level)")
+    levelString = NSAttributedString(string: "LEVEL: \(level)", attributes: scoreBoardStringAttributes)
     currentLevelLabel.attributedText = levelString
     currentLevelLabel.fontColor = .systemGray
-    currentLevelLabel.position = CGPoint(x: 0, y: -20)
+    currentLevelLabel.position = CGPoint(x: 0, y: -(currentLevelLabel.frame.height + (currentScoreLabel.frame.height * 0.1)))
     scoreNode.addChild(currentLevelLabel)
   }
   
@@ -109,12 +115,12 @@ final class GameScene: SKScene {
     self.view?.addGestureRecognizer(doubleTapGesture)
   }
   
+  
   private func setupResetButton() {
     resetButton = SpriteButton(scene: self, text: "PAUSE")
     resetButton.position = CGPoint(x: view!.frame.width * 0.5, y: gameBoard.frame.minY / 2)
     addChild(resetButton)
   }
-  
   
   private var time = 0
   override func update(_ currentTime: TimeInterval) {
@@ -168,13 +174,32 @@ extension GameScene {
   }
   
   
+  private func getPlayer() {
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
+    fetchRequest.predicate = NSPredicate(format: "name = %@", currentPlayerName)
+    do {
+      let fetchResult = try managedObjectContext.fetch(fetchRequest) as! [NSManagedObject]
+      if fetchResult.count != 0 {
+        currentPlayer = fetchResult[0] as? Player
+      }
+    } catch {
+      print(error)
+    }
+  }
+  
+  
   //MARK: Public Methods
   func pauseGame() {
     print("pause game called")
     guard gameBoard.boardState == .inPlay else { return }
     gameBoard.boardState = .paused
+    let attributes = [
+      NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .title3),
+      NSAttributedString.Key.foregroundColor : UIColor(named: "tetrisRed")!
+    ]
     let pauseView = PauseView(scene: self)
-    pauseView.labelView.text = "Your Score \(scoreString.string)"
+    pauseView.labelView.attributedText = NSAttributedString(string: "Your Score is \(score). Your current record is \(currentPlayer.topScore ?? "0")", attributes: attributes)
     view?.addSubview(pauseView)
   }
   
@@ -192,7 +217,7 @@ extension GameScene {
   func saveData() {
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
-    fetchRequest.predicate = NSPredicate(format: "name = %@", currentPlayer)
+    fetchRequest.predicate = NSPredicate(format: "name = %@", currentPlayerName)
     do {
       let fetchResult = try managedObjectContext.fetch(fetchRequest) as! [NSManagedObject]
       if fetchResult.count != 0 {

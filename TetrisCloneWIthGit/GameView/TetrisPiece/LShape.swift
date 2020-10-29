@@ -8,17 +8,17 @@
 import SpriteKit
 
 
-class LShape: TetrisPiece, TetrisPieceProtocol {
+final class LShape: TetrisPiece, TetrisPieceProtocol {
   
-  var blockOne: BaseNode!
-  var blockTwo: BaseNode!
-  var blockThree: BaseNode!
-  var blockFour: BaseNode!
+  internal var blockOne: BaseNode!
+  internal var blockTwo: BaseNode!
+  internal var blockThree: BaseNode!
+  internal var blockFour: BaseNode!
   
-  var color = BaseNode.colors.randomElement()!
+  private var color = BaseNode.colors.randomElement()!
   
-  var currentOrientation: Orientation = .left
-  var nextOrientation = 1
+  internal var currentOrientation: Orientation = .left
+  internal var nextOrientation = 1
   
   override init(size: CGFloat, xPos: [CGFloat], yPos: [CGFloat]) {
     super.init(size: size, xPos: xPos, yPos: yPos)
@@ -34,7 +34,7 @@ class LShape: TetrisPiece, TetrisPieceProtocol {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func stackNodes() {
+  internal func stackNodes() {
     blockOne = BaseNode(size: size, color: self.color)
     blockOne.position = .zero
     self.addChild(blockOne)
