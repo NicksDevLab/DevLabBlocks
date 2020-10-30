@@ -20,6 +20,7 @@ final class PlayerSelectVCTransitioningDelegate: NSObject, UIViewControllerTrans
   }
  
   func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    print("trans delegate dismiss")
     animatorController.isPresenting = false
     return animatorController
   }

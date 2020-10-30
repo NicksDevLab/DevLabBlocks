@@ -17,6 +17,8 @@ final class GameScene: SKScene {
   
   var currentPlayerName = (UIApplication.shared.delegate as! AppDelegate).defaults.string(forKey: "currentPlayer") ?? ""
   
+  var currentPlayer: Player!
+  
   var score = 0 {
     willSet(newValue) {
       currentScoreLabel.text = "\(currentPlayerName) - Score: \(newValue)"
@@ -39,11 +41,18 @@ final class GameScene: SKScene {
   private var nextPiecePreviewNode: SKShapeNode!
   private var nextPiece: TetrisPiece!
   private var resetButton: SpriteButton!
-  private var currentPlayer: Player!
   
   
   override func didMove(to view: SKView) {
     backgroundColor = .systemGray6
+    
+    let backgroundEmmiter = SKEmitterNode(fileNamed: "gamePlayBackground1")!
+    backgroundEmmiter.position = CGPoint(x: frame.midX, y: frame.maxY)
+    backgroundEmmiter.zPosition = -1
+    backgroundEmmiter.advanceSimulationTime(5)
+    backgroundEmmiter.particleColor = .red
+    self.addChild(backgroundEmmiter)
+    
     setupGameBoard()
     setupScoreBoard()
     setupNextPiecePreview()
@@ -191,15 +200,9 @@ extension GameScene {
   
   //MARK: Public Methods
   func pauseGame() {
-    print("pause game called")
-    guard gameBoard.boardState == .inPlay else { return }
+    guard gameBoard.boardState == .inPlay || gameBoard.boardState == .gameOver else { return }
     gameBoard.boardState = .paused
-    let attributes = [
-      NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .title3),
-      NSAttributedString.Key.foregroundColor : UIColor(named: "tetrisRed")!
-    ]
     let pauseView = PauseView(scene: self)
-    pauseView.labelView.attributedText = NSAttributedString(string: "Your Score is \(score). Your current record is \(currentPlayer.topScore ?? "0")", attributes: attributes)
     view?.addSubview(pauseView)
   }
   

@@ -20,6 +20,7 @@ class BaseNode: SKShapeNode {
     self.size = size
     self.color = color
     super.init()
+    
     let pathToDraw = CGMutablePath()
     pathToDraw.move(to: CGPoint(x: -(size / 2), y: -(size / 2)))
     pathToDraw.addLine(to: CGPoint(x: -(size / 2), y: (size / 2)))

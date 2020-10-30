@@ -66,6 +66,7 @@ final class PlayerSelectViewController: UIViewController {
   }
   
   
+  // MARK: Swipe Gesture
   private func setupDismissSwipeGesture() {
     dismissGesture = UISwipeGestureRecognizer(target: self, action: #selector(dismissView(_:)))
     dismissGesture.direction = .down
@@ -120,6 +121,7 @@ extension PlayerSelectViewController: UITableViewDelegate, UITableViewDataSource
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    fireHapticFeedback()
     guard players[indexPath.row].name != "" else { return }
     (UIApplication.shared.delegate as! AppDelegate).defaults.set(players[indexPath.row].name, forKey: "currentPlayer")
     dismiss(animated: true) {
@@ -135,16 +137,23 @@ extension PlayerSelectViewController {
   
   @objc
   private func dismissView(_ sender: UISwipeGestureRecognizer) {
+    print("dismiss")
     dismiss(animated: true, completion: nil)
   }
   
   
   @objc
   private func addPlayer() {
+    fireHapticFeedback()
     let vc = AddPlayerViewController()
     vc.thisParent = self
     vc.players = players
     present(vc, animated: true, completion: nil)
+  }
+  
+  private func fireHapticFeedback() {
+    let feedback = UIImpactFeedbackGenerator(style: .medium)
+    feedback.impactOccurred()
   }
   
   func retreiveCoreData() {

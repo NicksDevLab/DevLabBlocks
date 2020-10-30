@@ -53,8 +53,14 @@ final class SpriteButton: SKNode {
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     if gameScene.gameBoard.boardState == .inPlay {
+      fireHapticFeedback()
       gameScene.pauseGame()
     }
+  }
+  
+  private func fireHapticFeedback() {
+    let feedback = UIImpactFeedbackGenerator(style: .medium)
+    feedback.impactOccurred()
   }
   
 }

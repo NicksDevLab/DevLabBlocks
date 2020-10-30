@@ -27,6 +27,7 @@
 		011E293625333E040044C8B4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E293525333E040044C8B4 /* SettingsViewController.swift */; };
 		011E293B253340090044C8B4 /* Explode.sks in Resources */ = {isa = PBXBuildFile; fileRef = 011E293A253340090044C8B4 /* Explode.sks */; };
 		012E4DC325486199000FFED5 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012E4DC225486199000FFED5 /* PauseView.swift */; };
+		012E4DCC254C8EC5000FFED5 /* gamePlayBackground1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 012E4DCB254C8EC5000FFED5 /* gamePlayBackground1.sks */; };
 		0183D874252C06D7001DC8C9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0183D876252C06D7001DC8C9 /* Localizable.strings */; };
 		0183D881252C7367001DC8C9 /* HighScoreTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183D880252C7367001DC8C9 /* HighScoreTableView.swift */; };
 		0183D884252C7526001DC8C9 /* TetrisTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183D883252C7526001DC8C9 /* TetrisTableViewHeader.swift */; };
@@ -70,6 +71,7 @@
 		011E293525333E040044C8B4 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		011E293A253340090044C8B4 /* Explode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explode.sks; sourceTree = "<group>"; };
 		012E4DC225486199000FFED5 /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PauseView.swift; path = ../../../../../PauseView.swift; sourceTree = "<group>"; };
+		012E4DCB254C8EC5000FFED5 /* gamePlayBackground1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = gamePlayBackground1.sks; sourceTree = "<group>"; };
 		0183D875252C06D7001DC8C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0183D879252C0709001DC8C9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		0183D87B252C073F001DC8C9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -115,7 +117,6 @@
 				011E28F6253339B90044C8B4 /* GameViewController.swift */,
 				011E28F9253339EA0044C8B4 /* GameScene.swift */,
 				012E4DC225486199000FFED5 /* PauseView.swift */,
-				011E290625333B050044C8B4 /* GamePieceGenerator.swift */,
 				011E290425333AEB0044C8B4 /* GameBoard */,
 				011E292425333D170044C8B4 /* TetrisPiece */,
 				011E292F25333D9A0044C8B4 /* GameButtons */,
@@ -128,6 +129,7 @@
 			children = (
 				011E28FD25333AA90044C8B4 /* GameBoard.swift */,
 				011E290125333ADA0044C8B4 /* GameBoardGraphLine.swift */,
+				011E290625333B050044C8B4 /* GamePieceGenerator.swift */,
 			);
 			path = GameBoard;
 			sourceTree = "<group>";
@@ -241,6 +243,7 @@
 				0183D876252C06D7001DC8C9 /* Localizable.strings */,
 				011E293125333DDA0044C8B4 /* Extensions.swift */,
 				011E293A253340090044C8B4 /* Explode.sks */,
+				012E4DCB254C8EC5000FFED5 /* gamePlayBackground1.sks */,
 			);
 			path = TetrisCloneWIthGit;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				0183D874252C06D7001DC8C9 /* Localizable.strings in Resources */,
 				01F77DBF252B358A00466962 /* LaunchScreen.storyboard in Resources */,
 				01F77DBC252B358A00466962 /* Assets.xcassets in Resources */,
+				012E4DCC254C8EC5000FFED5 /* gamePlayBackground1.sks in Resources */,
 				011E293B253340090044C8B4 /* Explode.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

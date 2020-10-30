@@ -21,6 +21,7 @@ final class HighScoreTableViewCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     translatesAutoresizingMaskIntoConstraints = false
     backgroundColor = UIColor(named: "tetrisLabelBackground")
+    isUserInteractionEnabled = false
     
     setupNameLabel()
     setupScoreLabel()

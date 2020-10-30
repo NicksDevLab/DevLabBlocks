@@ -106,7 +106,6 @@ final class GameBoard: SKShapeNode {
     
   }
   
-  
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -247,7 +246,6 @@ final class GameBoard: SKShapeNode {
       if position.y >= yPositions.last! && pieceIsSet {
         boardState = .gameOver
         if let parent = self.parent as? GameScene {
-          print("GameOver Start")
           parent.saveData()
           parent.pauseGame()
         }
