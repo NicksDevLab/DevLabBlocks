@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  DevLabBlocks
+
+  Created by Nicholas Church on 10/5/20.
+  
+*/
+
+// MARK: StartScreenView
+"STACK BLOCKS"   = "BLOCS DE PILE";
+"START THE GAME"   = "COMMENCER LE JEU";
+"SETTINGS"    = "RÉGLAGES";
+"HIGH SCORES"    = "SCORES ÉLEVÉS";
